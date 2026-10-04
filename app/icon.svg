@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70" fill="#17e6d2">
+  <title>Nur Mohammad — NM</title>
+  <rect width="70" height="70" rx="14" fill="#030b10"/>
+  <g transform="translate(0 13)">
+    <path d="M4 36V8H10L25 27V8H31V36H25L10 17V36Z"/>
+    <path d="M35 36V8H41L50 22L59 8H65V36H59V19L50 32L41 19V36Z" fill-opacity=".72"/>
+  </g>
+</svg>

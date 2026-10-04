@@ -14,7 +14,7 @@ export function Hero() {
           <a href="#contact" className={styles.contactLink}>Let&apos;s talk <ArrowUpRight size={13} aria-hidden="true" /></a>
         </div>
         <aside className={styles.rail} aria-label="Social profiles">
-          <span className={styles.railLabel}>BACKEND-FIRST / BUILT TO LAST</span>
+          <span className={styles.railLabel}>BACKEND-FIRST | BUILT TO LAST</span>
           <span className={styles.railLine} aria-hidden="true" />
           <div className={styles.socials}>
             {socialLinks.filter(link => link.href).map(link => (

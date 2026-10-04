@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "export:resume": "node scripts/export-resume-pdf.js"
+    "lint": "eslint"
   },
   "dependencies": {
     "lucide-react": "^1.30.0",

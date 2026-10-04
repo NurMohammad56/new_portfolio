@@ -18,5 +18,13 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: "en-US",
     dir: "ltr",
     categories: ["portfolio", "business", "productivity"],
+    icons: [
+      {
+        src: "/icon.svg",
+        sizes: "any",
+        type: "image/svg+xml",
+        purpose: "any",
+      },
+    ],
   };
 }
