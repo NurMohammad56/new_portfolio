@@ -24,7 +24,7 @@
 .contactLink { display: flex; flex-shrink: 0; align-items: center; gap: 18px; padding: 10px 17px; border: 1px solid rgba(var(--signal-rgb), .4); border-radius: 4px; color: var(--signal); font-size: 11px; white-space: nowrap; transition: background 200ms, color 200ms; }
 .contactLink:hover { background: var(--signal); color: var(--ink); }
 .rail { position: absolute; z-index: 3; left: 34px; top: 155px; bottom: 32px; display: flex; align-items: center; flex-direction: column; gap: 25px; }
-.railLabel { writing-mode: vertical-rl; transform: rotate(180deg); font-family: var(--font-geist-mono), monospace; font-size: 9px; color: var(--muted); letter-spacing: .12em; }
+.railLabel { writing-mode: vertical-rl; transform: rotate(180deg); padding: 10px 6px; border-radius: 4px; background: #17e6d2; font-family: var(--font-geist-mono), monospace; font-size: 9px; color: #000000; letter-spacing: .12em; font-weight: 700; }
 .railLine { width: 1px; flex: 1; min-height: 40px; max-height: 170px; background: linear-gradient(var(--line-strong), transparent); }
 .socials { display: flex; flex-direction: column; gap: 14px; margin-top: auto; }
 .socials a { display: grid; place-items: center; width: 28px; height: 28px; color: var(--muted); transition: color 200ms; }
