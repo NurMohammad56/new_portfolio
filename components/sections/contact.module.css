@@ -1,0 +1,30 @@
+.section { padding-block: clamp(76px, 7vw, 120px); background: var(--ink-elevated); border-top: 1px solid var(--line); }
+.layout { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(32px, 7vw, 100px); padding-top: 12px; }
+.intro { max-width: 350px; }
+.availability { display: flex; align-items: center; gap: 10px; font-size: 11px; color: var(--signal); }
+.availability i { width: 6px; height: 6px; flex-shrink: 0; border-radius: 50%; background: currentColor; }
+.intro p { margin: 24px 0; font-size: 17px; line-height: 1.7; color: var(--text); }
+.intro > small { color: var(--muted); font-size: 11px; }
+.channels { min-width: 0; }
+.emailRow { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.emailRow > div { min-width: 0; }
+.label, .whatsapp small { display: block; margin-bottom: 12px; font-size: 10px; letter-spacing: 0.08em; color: var(--muted); }
+.email { display: flex; align-items: center; gap: 12px; font-size: clamp(17px, 1.8vw, 26px); letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.email svg { flex-shrink: 0; color: var(--signal); }
+.email:hover { color: var(--signal); }
+.copy { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border: 1px solid var(--line-strong); border-radius: 50%; background: transparent; color: var(--text); cursor: pointer; }
+.copy:hover { color: var(--ink); background: var(--signal); }
+.status { min-height: 20px; margin: 10px 0 20px; color: var(--signal); font-size: 11px; }
+.whatsapp { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 24px; border-block: 1px solid var(--line); font-size: 17px; }
+.whatsapp > span:last-child { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.whatsapp:hover > span:last-child { color: var(--signal); }
+.socials { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 24px; }
+.socials a { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.socials a:hover { color: var(--signal); }
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; gap: 36px; }
+  .intro { max-width: 100%; }
+  .intro p { font-size: 15px; margin-block: 18px; }
+  .whatsapp { align-items: flex-start; }
+  .whatsapp > span:last-child { max-width: 100px; font-size: 11px; }
+}
