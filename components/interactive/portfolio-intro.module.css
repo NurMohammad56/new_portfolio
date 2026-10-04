@@ -1,0 +1,132 @@
+.screen {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: clamp(24px, 4vw, 56px);
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--text);
+  animation: introExit 350ms cubic-bezier(.22, 1, .36, 1) 2s both;
+}
+.screen::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 44%, rgba(var(--signal-rgb), .07), transparent 46%);
+}
+.header, .footer {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 9px;
+  line-height: 1.65;
+  letter-spacing: .1em;
+  color: var(--muted);
+}
+.header { padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+.header > span:last-child, .footer > span:last-child { text-align: right; }
+.footer { padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted-light); }
+.center { position: relative; align-self: center; justify-self: center; text-align: center; padding-block: 30px; }
+.sculpture { position: relative; width: 260px; height: 260px; margin: 0 auto 25px; }
+.halo {
+  position: absolute;
+  inset: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--signal-rgb), .12), transparent 68%);
+  filter: blur(18px);
+}
+.scene { position: absolute; inset: 0; display: grid; place-items: center; perspective: 900px; }
+.volume {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform-style: preserve-3d;
+  transform: rotateX(-18deg) rotateY(-32deg) rotateZ(-8deg);
+  animation: volumeTurn 2s cubic-bezier(.37, 0, .63, 1) both;
+}
+.volume > i {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border: 1px solid rgba(var(--signal-rgb), .38);
+  background: linear-gradient(135deg, rgba(var(--signal-rgb), .035), transparent);
+  backface-visibility: visible;
+}
+.front { transform: translateZ(75px); }
+.back { transform: rotateY(180deg) translateZ(75px); }
+.left { transform: rotateY(-90deg) translateZ(75px); }
+.right { transform: rotateY(90deg) translateZ(75px); }
+.top { transform: rotateX(90deg) translateZ(75px); }
+.bottom { transform: rotateX(-90deg) translateZ(75px); }
+.volume > .layerOne, .volume > .layerTwo, .volume > .layerThree {
+  border-color: rgba(var(--signal-rgb), .14);
+  background: linear-gradient(rgba(var(--signal-rgb), .08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--signal-rgb), .08) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.layerOne { transform: translateZ(-38px); }
+.layerTwo { transform: translateZ(0); }
+.layerThree { transform: translateZ(38px); }
+.mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 82px;
+  height: 52px;
+  transform: translate(-50%, -50%);
+  color: var(--signal);
+  filter: drop-shadow(0 0 16px rgba(var(--signal-rgb), .15));
+}
+.center h2 { margin: 0; font-size: clamp(24px, 3vw, 34px); font-weight: 450; letter-spacing: -.045em; line-height: 1.2; }
+.center p { margin: 12px 0 0; font-size: 12px; color: var(--muted); letter-spacing: .015em; }
+.progress { width: 180px; height: 1px; margin: 35px auto 14px; overflow: hidden; background: var(--line); }
+.progress > span { display: block; width: 100%; height: 100%; background: var(--signal); transform-origin: left; animation: introProgress 2s cubic-bezier(.22, .61, .36, 1) both; }
+.caption { font-family: var(--font-geist-mono), monospace; font-size: 8px; letter-spacing: .17em; color: var(--muted-light); }
+/* Both timelines complete without JavaScript: an unavailable script must
+   never leave the real portfolio hidden behind an indefinite loader. */
+.content { animation: contentReveal 2s steps(1, end) both; }
+.content[data-ready="true"] { visibility: visible; animation: none; }
+@keyframes volumeTurn {
+  from { transform: rotateX(-18deg) rotateY(-32deg) rotateZ(-8deg); }
+  to { transform: rotateX(12deg) rotateY(38deg) rotateZ(8deg); }
+}
+@keyframes introProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes introExit {
+  from { opacity: 1; visibility: visible; }
+  to { opacity: 0; visibility: hidden; }
+}
+@keyframes contentReveal { from { visibility: hidden; } to { visibility: visible; } }
+@media (max-width: 600px) {
+  .header, .footer { font-size: 7px; letter-spacing: .045em; gap: 16px; }
+  .header > span { max-width: 140px; }
+  .sculpture { width: 220px; height: 220px; margin-bottom: 20px; }
+  .volume { width: 130px; height: 130px; }
+  .front { transform: translateZ(65px); }
+  .back { transform: rotateY(180deg) translateZ(65px); }
+  .left { transform: rotateY(-90deg) translateZ(65px); }
+  .right { transform: rotateY(90deg) translateZ(65px); }
+  .top { transform: rotateX(90deg) translateZ(65px); }
+  .bottom { transform: rotateX(-90deg) translateZ(65px); }
+  .mark { width: 72px; }
+}
+@media (max-height: 600px) {
+  .screen { padding: 20px 28px; }
+  .center { padding-block: 16px; }
+  .sculpture { width: 160px; height: 150px; margin-bottom: 12px; }
+  .scene { transform: scale(.65); }
+  .mark { width: 60px; height: 40px; }
+  .center h2 { font-size: 24px; }
+  .progress { margin-top: 20px; }
+  .header, .footer { padding-block: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .volume { animation: none; }
+  .progress > span { animation: none; transform: scaleX(1); }
+  .screen { animation-duration: 1ms; }
+}

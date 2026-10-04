@@ -1,4 +1,5 @@
 import { MotionProvider } from "@/components/interactive/reveal";
+import { PortfolioIntro } from "@/components/interactive/portfolio-intro";
 import { Navigation } from "@/components/interactive/navigation";
 import { ClientProof } from "@/components/sections/client-proof";
 import { Contact, Footer } from "@/components/sections/contact";
@@ -24,22 +25,24 @@ const jsonLd = {
 export default function Home() {
   return (
     <MotionProvider>
-      <a className="skip-link" href="#main-content">Skip to content</a>
-      <Navigation items={navigation} />
-      <main id="main-content">
-        <Hero />
-        <ClientProof />
-        <Projects />
-        <Stack />
-        <Services />
-        <Deployment />
-        <Contact />
-      </main>
-      <Footer />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
-      />
+      <PortfolioIntro>
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <Navigation items={navigation} />
+        <main id="main-content">
+          <Hero />
+          <ClientProof />
+          <Projects />
+          <Stack />
+          <Services />
+          <Deployment />
+          <Contact />
+        </main>
+        <Footer />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        />
+      </PortfolioIntro>
     </MotionProvider>
   );
 }

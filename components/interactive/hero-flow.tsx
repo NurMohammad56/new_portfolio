@@ -108,7 +108,7 @@ export function HeroFlow({ fallback }: { fallback: ReactNode }) {
     syncRef.current();
   };
   return (
-    <div className={styles.root} ref={rootRef} data-hero-flow data-mode="fallback">
+    <div className={styles.root} ref={rootRef} data-hero-flow data-mode="pending">
       <div className={styles.visual} aria-hidden="true">
         <div className={styles.fallback}>{fallback}</div>
         <canvas className={styles.canvas} ref={canvasRef} aria-hidden="true" />
