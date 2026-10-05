@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
+import { DirectionalPanel } from "./directional-panel";
+import { useReadingStage } from "./use-reading-stage";
 import { ArrowUpRight } from "lucide-react";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import type { CareerStage } from "@/data/career";
@@ -10,39 +12,11 @@ type CareerStoryProps = {
 };
 
 export function CareerStory({ stages }: CareerStoryProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const stageRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const { activeIndex, direction, cardRefs: stageRefs, sectionRef, select, navigate } = useReadingStage(stages.length);
   const activeStage = stages[activeIndex] ?? stages[0];
 
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (a, b) =>
-              Math.abs(a.boundingClientRect.top - window.innerHeight * 0.44) -
-              Math.abs(b.boundingClientRect.top - window.innerHeight * 0.44),
-          )[0];
-
-        if (!visible) return;
-        const nextIndex = Number((visible.target as HTMLElement).dataset.careerIndex);
-        if (Number.isInteger(nextIndex)) setActiveIndex(nextIndex);
-      },
-      { rootMargin: "-30% 0px -42% 0px", threshold: [0, 0.25, 0.65] },
-    );
-
-    stageRefs.current.forEach((stage) => {
-      if (stage) observer.observe(stage);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className="career-story-layout">
+    <div className="career-story-layout" ref={sectionRef}>
       <aside className="career-story-readout" aria-label="Career stage navigator">
         <div className="career-story-readout-sticky">
           <div className="career-story-readout-head">
@@ -59,13 +33,8 @@ export function CareerStory({ stages }: CareerStoryProps) {
                   key={stage.id}
                   className={index === activeIndex ? "is-active" : undefined}
                   aria-label={`Show ${stage.role} at ${stage.organization}`}
-                  onClick={() => {
-                    setActiveIndex(index);
-                    stageRefs.current[index]?.scrollIntoView({
-                      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-                      block: "center",
-                    });
-                  }}
+                  onClick={() => navigate(index)}
+                  aria-current={index === activeIndex ? "step" : undefined}
                 >
                   <span>{stage.number}</span>
                   <i aria-hidden="true" />
@@ -74,7 +43,8 @@ export function CareerStory({ stages }: CareerStoryProps) {
               ))}
             </div>
 
-            <div className="career-story-active" key={activeStage.id}>
+            <DirectionalPanel panelKey={activeStage.id} direction={direction} className="career-preview-deck">
+            <div className="career-story-active">
               <span>{activeStage.phase}</span>
               <div className="career-active-logo-box">
                 <CompanyLogo id={activeStage.logoId} size={30} />
@@ -99,6 +69,7 @@ export function CareerStory({ stages }: CareerStoryProps) {
               <small>{activeStage.duration}</small>
               <small>{activeStage.location}</small>
             </div>
+            </DirectionalPanel>
 
             <span className="career-story-grid" />
           </div>
@@ -118,8 +89,7 @@ export function CareerStory({ stages }: CareerStoryProps) {
             data-active={index === activeIndex}
             data-career-index={index}
             ref={(node) => { stageRefs.current[index] = node; }}
-            onMouseEnter={() => setActiveIndex(index)}
-            onFocusCapture={() => setActiveIndex(index)}
+            onFocusCapture={() => select(index)}
           >
             <article>
               <header>

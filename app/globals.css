@@ -7955,11 +7955,6 @@ button {
 
 .stack-focus-card[data-active="true"] {
   border-color: rgba(var(--signal-rgb), 0.3);
-  background: linear-gradient(
-    100deg,
-    rgba(var(--signal-rgb), 0.075),
-    transparent 48%
-  );
 }
 
 .stack-focus-card[data-active="true"]::before {
@@ -9004,14 +8999,6 @@ button {
   background: var(--signal);
   content: "";
   transition: transform 430ms var(--ease-out);
-}
-
-.career-story-stages > li[data-active="true"] article {
-  background: linear-gradient(
-    100deg,
-    rgba(var(--signal-rgb), 0.075),
-    transparent 50%
-  );
 }
 
 .career-story-stages > li[data-active="true"] article::before {
@@ -12974,3 +12961,24 @@ button {
     min-height: 500px;
   }
 }
+
+/* Slow, composited highlights: opacity can interpolate where gradients cannot. */
+.stack-focus-card, .career-story-stages article { isolation: isolate; transition: border-color 950ms ease; }
+.stack-focus-card::after, .career-story-stages article::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(105deg, rgba(var(--signal-rgb), .065), transparent 65%); opacity: 0; transition: opacity 1100ms cubic-bezier(.22, 1, .36, 1); }
+.stack-focus-card[data-active="true"]::after, .career-story-stages > li[data-active="true"] article::after { opacity: 1; }
+.stack-focus-card > *, .career-story-stages article > * { position: relative; z-index: 1; }
+.stack-focus-card::before, .career-story-stages article::before { z-index: 2; transition-duration: 900ms; }
+.stack-focus-card > header > div, .career-story-stages article > header > div { transition-duration: 850ms; }
+.stack-focus-card[data-active="true"] > header > div, .career-story-stages > li[data-active="true"] header > div { background: rgba(var(--signal-rgb), .12); color: var(--signal); border-color: rgba(var(--signal-rgb), .55); }
+.career-story-route button, .career-story-route button > i { transition-duration: 700ms; }
+.career-story-route > span i { transition-duration: 850ms; }
+.career-story-active { animation: none; border-radius: 12px; min-height: 335px; }
+.career-story-active > small { display: block; margin-top: 8px; line-height: 1.7; }
+.career-preview-deck { border-radius: 12px; }
+.career-story-stages > li[data-active="true"] article > ul li, .stack-focus-card[data-active="true"] .stack-core-tools li { animation-duration: 700ms; }
+.cicd-live-pill { max-width: 100%; }
+.cicd-infinity-container[data-animated="false"] .animated-infinity-path, .cicd-infinity-container[data-animated="false"] .live-dot { animation-play-state: paused; }
+@media (min-width: 1001px) and (max-height: 700px) { .stack-blueprint, .career-story-readout { display: none; } .stack-story-layout, .career-story-layout { grid-template-columns: minmax(0, 1fr); } }
+@media (min-width: 1001px) and (max-height: 680px) { .career-story-readout-sticky { height: auto; min-height: 0; } .career-story-readout-body { padding: 20px; } .career-story-route { min-height: 240px; } .career-story-active { min-height: 300px; } .career-story-active > div { margin-top: 24px; } }
+@media (max-width: 760px) { .cicd-live-pill { font-size: 8px; line-height: 1.7; letter-spacing: .02em; } }
+@media (prefers-reduced-motion: reduce) { .stack-focus-card, .stack-focus-card::after, .career-story-stages article, .career-story-stages article::after, .stack-focus-card::before, .career-story-stages article::before, .stack-focus-card > header > div, .career-story-stages article > header > div, .career-story-route button, .career-story-route button > i, .career-story-route > span i { transition: none; } .stack-focus-card[data-active="true"] .stack-core-tools li, .career-story-stages > li[data-active="true"] article > ul li { animation: none; } }

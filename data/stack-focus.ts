@@ -22,18 +22,6 @@ export const primaryStack = [
 
 export const stackFocusGroups = [
   {
-    id: "interface-engineering",
-    level: "AI-ASSISTED FRONTEND",
-    title: "Frontend Integration",
-    description:
-      "React and Next.js interfaces built with AI assistance, connected thoughtfully to dependable backend APIs.",
-    icon: "PanelTop",
-    signal: "UI + API INTEGRATION",
-    proof: "BACKEND-FIRST DELIVERY",
-    core: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
-    supporting: ["shadcn/ui", "React Query", "Zustand", "Framer Motion"],
-  },
-  {
     id: "backend-realtime",
     level: "PRIMARY SPECIALIZATION",
     title: "Backend & Real-time",
@@ -44,6 +32,18 @@ export const stackFocusGroups = [
     proof: "2+ YEARS BACKEND",
     core: ["Node.js", "Nest.js", "Express.js", "MongoDB", "PostgreSQL"],
     supporting: ["Mongoose", "Socket.IO", "REST APIs"],
+  },
+  {
+    id: "interface-engineering",
+    level: "AI-ASSISTED FRONTEND",
+    title: "AI-Assisted Frontend",
+    description:
+      "AI-assisted React and Next.js implementation for responsive websites and product interfaces, with careful review of generated code, accessible UI, and dependable API integration.",
+    icon: "PanelTop",
+    signal: "AI ASSISTANCE + UI + APIs",
+    proof: "BACKEND-FIRST DELIVERY",
+    core: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
+    supporting: ["shadcn/ui", "React Query", "Zustand", "Framer Motion"],
   },
   {
     id: "mobile-products",

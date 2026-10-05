@@ -46,16 +46,30 @@
 .details { display: flex; flex-wrap: wrap; gap: 10px 25px; color: var(--muted); font-size: 10px; }
 .scrollLink { display: flex; align-items: center; gap: 12px; margin-left: auto; margin-right: 150px; font-family: var(--font-geist-mono), monospace; font-size: 9px; letter-spacing: .1em; color: var(--muted); }
 .scrollLink:hover { color: var(--signal); }
+.portrait { position: absolute; z-index: 1; right: 6%; bottom: 90px; width: min(36%, 480px); height: min(72%, 560px); margin: 0; pointer-events: none; }
+.portraitHalo { position: absolute; inset: 4% -5% 0; border: 1px solid rgba(var(--signal-rgb), .12); border-radius: 46% 46% 16px 16px; background: radial-gradient(ellipse at 50% 36%, rgba(var(--signal-rgb), .075), transparent 68%), linear-gradient(160deg, transparent, rgba(var(--signal-rgb), .025)); }
+.portraitHalo::before { content: ""; position: absolute; inset: 12px; border: 1px solid rgba(var(--signal-rgb), .045); border-radius: inherit; }
+.portraitImage { position: absolute; inset: -3% -4% 0; mask-image: linear-gradient(#000 75%, transparent 100%); }
+.portraitImage img { object-fit: contain; object-position: center bottom; filter: saturate(.8); }
+.portrait figcaption { position: absolute; left: 0; right: 0; bottom: -20px; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--muted); font: 8px var(--font-geist-mono), monospace; letter-spacing: .08em; white-space: nowrap; }
+.portrait figcaption span { color: var(--signal-light); }
+.portrait figcaption i { width: 3px; height: 3px; background: var(--signal); border-radius: 50%; }
+@media (max-width: 1340px) { .copy { width: min(100%, 470px); } }
 @media (max-width: 1120px) {
+  .portrait { right: 3%; width: 36%; height: 65%; bottom: 125px; }
+  .portrait figcaption { font-size: 7px; gap: 7px; }
   .frame { padding-inline: 110px 48px; }
   .title { font-size: clamp(58px, 7.2vw, 80px); }
   .copy { width: 54%; min-width: 340px; }
   .bottom { left: 110px; }
   .scrollLink { display: none; }
 }
-@media (max-width: 760px) {
+@media (max-width: 950px) {
   .hero { padding: 84px 14px 28px; }
-  .frame { min-height: max(720px, calc(100svh - 112px)); padding: 158px 28px 125px; border-width: 7px; border-radius: 22px; align-items: center; }
+  .frame { min-height: max(850px, calc(100svh - 112px)); padding: 110px 28px 390px; border-width: 7px; border-radius: 22px; align-items: flex-start; }
+  .portrait { right: 50%; transform: translateX(50%); bottom: 119px; width: 240px; height: 268px; }
+  .portraitImage { inset: -5% -4% 0; }
+  .portrait figcaption { font-size: 6px; bottom: -17px; }
   .topbar { top: 22px; left: 24px; right: 24px; }
   .edition { font-size: 8px; letter-spacing: .05em; }
   .contactLink { padding: 9px 12px; font-size: 10px; gap: 10px; }

@@ -1,0 +1,27 @@
+.stage { display: flex; flex-shrink: 0; align-items: center; justify-content: center; width: 100%; height: 254px; margin: 12px 0 10px; overflow: hidden; perspective: 950px; }
+.scene { display: block; width: 100%; height: 100%; min-width: 0; min-height: 0; max-width: 420px; overflow: hidden; fill: none; color: var(--signal); transform: rotateX(5deg); transition: transform 850ms var(--ease-out); }
+.stage:hover .scene { transform: rotateX(0) translateY(-3px); }
+.ground { fill: rgba(var(--signal-rgb), .018); stroke: rgba(var(--signal-rgb), .12); stroke-width: .8; }
+.side { fill: var(--ink); stroke: rgba(var(--signal-rgb), .3); stroke-width: 1; }
+.top { fill: var(--ink-elevated); stroke: rgba(var(--signal-rgb), .65); stroke-width: 1; }
+.node { fill: var(--ink-elevated); stroke: rgba(var(--signal-rgb), .4); stroke-width: 1; }
+.quiet { fill: rgba(var(--signal-rgb), .045); stroke: rgba(var(--signal-rgb), .12); }
+.edge { stroke: rgba(var(--signal-rgb), .4); stroke-width: .8; }
+.connection { stroke: rgba(var(--signal-rgb), .16); stroke-width: 1; stroke-linejoin: round; }
+.flow { stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 4 32; stroke-linecap: round; animation: packets 8s linear infinite; }
+.annotation { stroke: rgba(var(--signal-rgb), .2); stroke-width: .8; stroke-dasharray: 2 3; }
+.label { fill: var(--signal-light); stroke: none; font: 9px var(--font-geist-mono), monospace; letter-spacing: .07em; }
+.micro { fill: var(--muted); stroke: none; font: 7px var(--font-geist-mono), monospace; letter-spacing: .08em; }
+.light { fill: var(--signal); stroke: none; }
+.orbit { stroke: rgba(var(--signal-rgb), .15); stroke-width: .8; stroke-dasharray: 2 5; }
+.ripple { stroke: rgba(var(--signal-rgb), .3); stroke-width: .8; animation: breathe 4.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.layer { animation: layer-light 5s ease-in-out infinite; }
+.cursor { fill: var(--signal); stroke: var(--ink); stroke-width: 1; }
+.spark { fill: rgba(var(--signal-rgb), .2); stroke: var(--signal); stroke-width: .8; animation: breathe 4.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes packets { to { stroke-dashoffset: -144; } }
+@keyframes breathe { 0%, 100% { opacity: .5; transform: scale(.97); } 50% { opacity: 1; transform: scale(1.04); } }
+@keyframes layer-light { 0%, 100% { opacity: .7; } 50% { opacity: 1; } }
+.stage .flow, .stage .ripple, .stage .layer, .stage .spark { animation-play-state: paused; }
+:global([data-study-running="true"]) .flow, :global([data-study-running="true"]) .ripple, :global([data-study-running="true"]) .layer, :global([data-study-running="true"]) .spark { animation-play-state: running; }
+@media (max-height: 820px) { .stage { height: 236px; margin-top: 6px; } }
+@media (prefers-reduced-motion: reduce) { .stage .flow, .stage .ripple, .stage .layer, .stage .spark { animation: none; } .scene, .stage:hover .scene { transform: none; transition: none; } }

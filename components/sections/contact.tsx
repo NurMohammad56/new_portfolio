@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useInView } from "motion/react";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { siteIdentity, socialLinks } from "@/data/portfolio";
 import { Reveal } from "@/components/interactive/reveal";
@@ -10,6 +11,8 @@ import styles from "./contact.module.css";
 const email = "nurmohammad0605@gmail.com";
 
 export function Contact() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const visible = useInView(sectionRef, { margin: "100px" });
   const [copyStatus, setCopyStatus] = useState("");
   const copyEmail = async () => {
     try {
@@ -21,7 +24,16 @@ export function Contact() {
   };
 
   return (
-    <section className={`section ${styles.section}`} id="contact" aria-labelledby="contact-title">
+    <section ref={sectionRef} className={`section ${styles.section}`} id="contact" aria-labelledby="contact-title">
+      <div className={styles.atmosphere} aria-hidden="true" data-active={visible}>
+        <svg viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice" className={styles.contours}>
+          {Array.from({ length: 16 }, (_, index) => (
+            <path key={index} d={`M ${650 + index * 24} -60 C ${350 + index * 27} 175, ${1150 + index * 25} 295, ${700 + index * 29} 540 S ${660 + index * 34} 760, ${980 + index * 27} 870`} />
+          ))}
+          <path className={styles.tracer} d="M 938 -60 C 674 175, 1450 295, 1048 540 S 1068 760, 1304 870" />
+          <circle cx="900" cy="193" r="2" /><circle cx="1070" cy="475" r="2" /><circle cx="700" cy="670" r="2" />
+        </svg>
+      </div>
       <div className="site-shell">
         <Reveal>
           <SectionHeading index="07" eyebrow="Get in touch" id="contact-title"

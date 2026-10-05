@@ -1,8 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { useRef, useState } from "react";
+import { useInView } from "motion/react";
+import { ArrowLeft, ArrowRight, Check, Terminal } from "lucide-react";
 import { cicdStages } from "@/data/portfolio";
+import { deploymentDetails } from "@/data/deployment-details";
+import { Icon } from "@/components/ui/icon";
+import { DirectionalPanel } from "@/components/interactive/directional-panel";
+import styles from "./cicd-details.module.css";
 
 const stageNodes = [
   { id: "plan", x: 255, y: 95, labelX: 255, labelY: 60, label: "PLAN" },
@@ -16,13 +21,23 @@ const stageNodes = [
 ] as const;
 
 export function CicdInfinityChart() {
-  const [activeStageId, setActiveStageId] = useState<string>("plan");
+  const chartRef = useRef<HTMLDivElement | null>(null);
+  const visible = useInView(chartRef, { margin: "100px" });
+  const [{ id: activeStageId, direction }, setStage] = useState({ id: "plan", direction: 1 });
+  const selectStage = (id: string) => setStage(current => {
+    if (current.id === id) return current;
+    const next = cicdStages.findIndex(stage => stage.id === id);
+    const previous = cicdStages.findIndex(stage => stage.id === current.id);
+    return { id, direction: next > previous ? 1 : -1 };
+  });
 
   const currentStage =
     cicdStages.find((s) => s.id === activeStageId) || cicdStages[0];
+  const currentIndex = cicdStages.indexOf(currentStage);
+  const detail = deploymentDetails[currentStage.id];
 
   return (
-    <div className="cicd-infinity-container">
+    <div className="cicd-infinity-container" ref={chartRef} data-animated={visible}>
       {/* Top Controller & Badges */}
       <div className="cicd-chart-header">
         <div className="cicd-title-group">
@@ -185,11 +200,11 @@ export function CicdInfinityChart() {
                 aria-label={`Stage ${stage.stepNumber}: ${stage.name}`}
                 aria-pressed={selected}
                 aria-controls="pipeline-stage-title"
-                onClick={() => setActiveStageId(node.id)}
+                onClick={() => selectStage(node.id)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
-                    setActiveStageId(node.id);
+                    selectStage(node.id);
                   }
                 }}
               >
@@ -213,7 +228,7 @@ export function CicdInfinityChart() {
               key={stage.id}
               type="button"
               className={`stage-pill-btn ${isCI ? "ci-stage" : "cd-stage"} ${isSelected ? "is-active" : ""}`}
-              onClick={() => setActiveStageId(stage.id)}
+              onClick={() => selectStage(stage.id)}
               aria-pressed={isSelected}
             >
               <span className="stage-badge">{stage.stepNumber}</span>
@@ -224,37 +239,35 @@ export function CicdInfinityChart() {
       </div>
 
       {/* Active Stage Detail & Command Inspector */}
-      <div className="cicd-inspector-card" role="region" aria-live="polite" aria-labelledby="pipeline-stage-title">
-        <div className="inspector-head">
-          <div className="inspector-meta">
-            <span className={`phase-tag ${currentStage.phase === "CI" ? "ci" : "cd"}`}>
-              {currentStage.phase} PHASE • STAGE {currentStage.stepNumber}
-            </span>
-            <h3 className="inspector-title" id="pipeline-stage-title">{currentStage.name}</h3>
-            <p className="inspector-subtitle">{currentStage.subtitle}</p>
-          </div>
-          {currentStage.highlight && (
-            <div className="inspector-highlight">
-              <CheckCircle2 size={16} />
-              <span>{currentStage.highlight}</span>
-            </div>
-          )}
+      <div className={styles.inspector} role="region" aria-live="polite" aria-label="Deployment workflow details" id="pipeline-stage-title">
+        <div className={styles.chrome}>
+          <span><i /> WORKFLOW / {currentStage.phase === "CI" ? "INTEGRATION" : "DELIVERY"}</span>
+          <span>{currentStage.stepNumber} / 08</span>
         </div>
-
-        <p className="inspector-desc">{currentStage.description}</p>
-
-        <div className="inspector-footer">
-          <div className="inspector-tools">
-            <span className="tools-label">TOOLS & STACK:</span>
-            <div className="tools-pills">
-              {currentStage.tools.map((tool) => (
-                <span key={tool} className="tool-pill">
-                  {tool}
-                </span>
-              ))}
+        <DirectionalPanel panelKey={currentStage.id} direction={direction}>
+          <div className={styles.content} data-deployment-detail={currentStage.id}>
+            <div className={styles.summary}>
+              <div className={styles.icon}><Icon name={currentStage.iconName} size={25} aria-hidden="true" /></div>
+              <span className={styles.eyebrow}>{currentStage.subtitle}</span>
+              <h3>{currentStage.name}</h3>
+              <p>{currentStage.description}</p>
+              <ul className={styles.tools} aria-label="Tools and approach">{currentStage.tools.map(tool => <li key={tool}>{tool}</li>)}</ul>
             </div>
+            <div className={styles.delivery}>
+              <span className={styles.label}>WHAT THIS STAGE COVERS</span>
+              <ul>{detail.checks.map(check => <li key={check}><Check size={14} aria-hidden="true" /><span>{check}</span></li>)}</ul>
+              <div className={styles.terminal}>
+                <span><Terminal size={12} aria-hidden="true" /> COMMAND EXAMPLE <small>ILLUSTRATIVE ONLY</small></span>
+                <code><b aria-hidden="true">$</b> {currentStage.terminalCommand}</code>
+              </div>
+            </div>
+            <div className={styles.outcome}><span>HANDOFF</span><p>{detail.outcome}</p></div>
           </div>
-
+        </DirectionalPanel>
+        <div className={styles.controls}>
+          <button type="button" disabled={currentIndex === 0} onClick={() => selectStage(cicdStages[currentIndex - 1].id)}><ArrowLeft size={14} aria-hidden="true" /> Previous stage</button>
+          <div className={styles.progress} aria-hidden="true">{cicdStages.map((stage, index) => <i key={stage.id} data-filled={index <= currentIndex} />)}</div>
+          <button type="button" disabled={currentIndex === cicdStages.length - 1} onClick={() => selectStage(cicdStages[currentIndex + 1].id)}>Next stage <ArrowRight size={14} aria-hidden="true" /></button>
         </div>
       </div>
 

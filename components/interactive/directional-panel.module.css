@@ -1,0 +1,4 @@
+.viewport { position: relative; display: grid; min-width: 0; overflow: hidden; isolation: isolate; perspective: 1100px; }
+.panel { grid-area: 1 / 1; min-width: 0; backface-visibility: hidden; }
+.panel[aria-hidden="true"] { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .viewport { perspective: none; } }

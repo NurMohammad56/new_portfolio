@@ -1,4 +1,5 @@
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
+import Image from "next/image";
 import { socialLinks, siteIdentity } from "@/data/portfolio";
 import { HeroFlow } from "@/components/interactive/hero-flow";
 import { HeroMeshFallback } from "@/components/visuals/hero-mesh-fallback";
@@ -34,6 +35,13 @@ export function Hero() {
             <span className={styles.availability}><i aria-hidden="true" />Available for selected projects</span>
           </div>
         </div>
+        <figure className={styles.portrait}>
+          <span className={styles.portraitHalo} aria-hidden="true" />
+          <div className={styles.portraitImage}>
+            <Image src="/nur-hero-cutout.png" alt="Nur Mohammad" fill sizes="(max-width: 950px) 260px, (max-width: 1120px) 38vw, 480px" loading="eager" />
+          </div>
+          <figcaption><span>THE PERSON BEHIND THE APIs</span><i aria-hidden="true" /> DHAKA, BD</figcaption>
+        </figure>
         <div className={styles.bottom}>
           <div className={styles.details}><span>Dhaka, Bangladesh</span><span>2+ years of experience</span></div>
           <a href="#experience" className={styles.scrollLink}>SCROLL TO DISCOVER <ArrowDown size={14} aria-hidden="true" /></a>
