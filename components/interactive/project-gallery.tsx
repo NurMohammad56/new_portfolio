@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Globe, Smartphone, X, ZoomIn, ZoomOut } from "lucide-react";
+import { Apple, ArrowLeft, ArrowRight, ArrowUpRight, Check, Globe, Play, Server, X, ZoomIn, ZoomOut } from "lucide-react";
 import { showcaseProjects } from "@/data/project-showcase";
+import { ProjectDevice } from "@/components/visuals/project-device";
 import type { createGalleryRenderer } from "./gallery-renderer";
 import styles from "./project-gallery.module.css";
 
@@ -14,13 +15,15 @@ export function ProjectGallery() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const sheetRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const navigateRef = useRef<(direction: number) => void>(() => { });
   const focusCardRef = useRef<(index: number) => void>(() => { });
   const suppressClick = useRef(false);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const [active, setActive] = useState(0);
   const [opened, setOpened] = useState<number | null>(null);
-  const [zoomedImage, setZoomedImage] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [zoomedImage, setZoomedImage] = useState(false);
   const project = showcaseProjects[opened ?? 0];
 
   useEffect(() => {
@@ -197,6 +200,7 @@ export function ProjectGallery() {
     if (!dialog) return;
     if (!dialog.open) dialog.showModal();
     sheetRef.current?.scrollTo({ top: 0 });
+    closeButtonRef.current?.focus({ preventScroll: true });
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => { document.body.style.overflow = previousOverflow; };
@@ -205,12 +209,18 @@ export function ProjectGallery() {
   const close = () => {
     dialogRef.current?.close();
     setOpened(null);
-    setZoomedImage(null);
+    setZoomedImage(false);
     triggerRef.current?.focus({ preventScroll: true });
   };
   const changeProject = (direction: number) => {
-    setZoomedImage(null);
+    setZoomedImage(false);
+    setSelectedImage(0);
     setOpened(index => wrap((index ?? 0) + direction, showcaseProjects.length));
+  };
+
+  const changeImage = (direction: number) => {
+    setZoomedImage(false);
+    setSelectedImage(index => wrap(index + direction, project.images.length));
   };
 
   return (
@@ -230,12 +240,13 @@ export function ProjectGallery() {
       }}>
         <canvas className={styles.canvas} ref={canvasRef} aria-hidden="true" />
         {showcaseProjects.map((item, index) => (
-          <button key={item.id} type="button" className={styles.card} data-gallery-card aria-label={`Preview ${item.title}, ${item.category}`} onFocus={event => {
+          <button key={item.id} type="button" className={styles.card} data-gallery-card aria-label={`Explore ${item.title}, ${item.category}, backend development`} aria-haspopup="dialog" aria-controls="project-details-dialog" onFocus={event => {
             if (event.currentTarget.matches(":focus-visible")) focusCardRef.current(index);
           }} onClick={event => {
             if (event.detail !== 0 && suppressClick.current) { suppressClick.current = false; return; }
             triggerRef.current = event.currentTarget;
-            setZoomedImage(null);
+            setZoomedImage(false);
+            setSelectedImage(0);
             setOpened(index);
           }}>
             <Image src={item.cover} alt="" fill sizes="(max-width: 650px) 82vw, 760px" draggable={false} />
@@ -247,7 +258,7 @@ export function ProjectGallery() {
         ))}
       </div>
       <div className={styles.controls}>
-        <p>Scroll or drag to explore <span>- click a project to open</span></p>
+        <p><span className={styles.counter}>{String(active + 1).padStart(2, "0")} / 08</span> {showcaseProjects[active].title} <span>- scroll or drag · click to explore</span></p>
         <div className={styles.pagination}>
           <button type="button" aria-label="Previous gallery project" onClick={() => navigateRef.current(-1)}><ArrowLeft size={18} /></button>
           <div className={styles.dots} aria-label="Choose a project">
@@ -257,49 +268,72 @@ export function ProjectGallery() {
         </div>
       </div>
 
-      <dialog ref={dialogRef} className={styles.dialog} aria-labelledby="showcase-project-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }} onKeyDown={event => {
+      <dialog id="project-details-dialog" ref={dialogRef} className={styles.dialog} aria-labelledby="showcase-project-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }} onKeyDown={event => {
         if (event.key === "Escape") {
           event.preventDefault();
-          close();
+          if (zoomedImage) setZoomedImage(false); else close();
         } else if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
           event.preventDefault();
-          changeProject(event.key === "ArrowRight" ? 1 : -1);
+          const direction = event.key === "ArrowRight" ? 1 : -1;
+          if (event.altKey) changeProject(direction); else changeImage(direction);
         }
       }}>
-        <div className={styles.sheet} ref={sheetRef}>
-          <button type="button" className={styles.close} onClick={close} aria-label="Close project preview"><X size={21} /></button>
-          <div className={styles.copy} key={project.id}>
-            <span className={styles.demoLabel}>PROJECT PREVIEW / DEMO</span>
-            <h3 id="showcase-project-title">{project.title}</h3>
-            <p>{project.description}</p>
-            <div className={styles.tags}><span>{project.category}</span>{project.technologies.map(technology => <span key={technology}>{technology}</span>)}</div>
-            <div className={styles.projectLinks} aria-label="Project links">
-              {([
-                { label: "Live website", url: project.links.website, icon: Globe },
-                { label: "Google Play", url: project.links.googlePlay, icon: Smartphone },
-                { label: "Apple App Store", url: project.links.appStore, icon: Smartphone },
-              ] as const).map(link => link.url ? (
-                <a key={link.label} href={link.url} target="_blank" rel="noreferrer"><link.icon size={16} aria-hidden="true" />{link.label}<ArrowUpRight size={15} aria-hidden="true" /></a>
-              ) : (
-                <span key={link.label} aria-disabled="true"><link.icon size={16} aria-hidden="true" />{link.label}<small>Coming soon</small></span>
-              ))}
-            </div>
-            <p className={styles.placeholderNote}>Placeholder images &amp; content. Actual work coming soon.</p>
+        {opened !== null && <div className={styles.sheet} data-project-detail={project.id}>
+          <div className={styles.topbar}>
+            <span>SELECTED WORK / {project.number}</span><span>{project.platform}</span>
+            <button ref={closeButtonRef} type="button" className={styles.close} onClick={close} aria-label="Close project details"><X size={21} /></button>
           </div>
-          <div className={styles.media} key={`${project.id}-images`}>
-            {project.images.map((src, index) => (
-              <button className={`${styles.imagePreview}${zoomedImage === index ? ` ${styles.zoomed}` : ""}`} type="button" key={`${src}-${index}`} aria-label={`${zoomedImage === index ? "Zoom out of" : "Zoom into"} ${project.title} image ${index + 1}`} aria-pressed={zoomedImage === index} onClick={() => setZoomedImage(zoomedImage === index ? null : index)}>
-                <Image src={src} alt={`${project.title} demo interface ${index + 1}`} width={1200} height={800} sizes="(max-width: 760px) 90vw, 60vw" />
-                <span>{zoomedImage === index ? <ZoomOut size={17} /> : <ZoomIn size={17} />}</span>
-              </button>
-            ))}
+          <div className={styles.detailBody} ref={sheetRef}>
+            <div className={styles.copy} key={project.id}>
+              <span className={styles.eyebrow}>{project.category}</span>
+              <h3 id="showcase-project-title">{project.title}</h3>
+              <p className={styles.overview}>{project.description}</p>
+              <div className={styles.projectLinks} aria-label="Live project links">
+                {project.links.map(link => {
+                  const LinkIcon = link.kind === "appStore" ? Apple : link.kind === "googlePlay" ? Play : Globe;
+                  return <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer"><LinkIcon size={16} aria-hidden="true" />{link.label}<ArrowUpRight size={15} aria-hidden="true" /></a>;
+                })}
+              </div>
+              <section className={styles.contribution} aria-label="My backend contribution">
+                <h4><Server size={16} aria-hidden="true" /> My role · Backend Developer</h4>
+                <p>{project.contribution}</p>
+              </section>
+              <section className={styles.detailSection}>
+                <h4>The backend, in focus</h4>
+                <ol className={styles.highlights}>{project.backendHighlights.map((highlight, index) => <li key={highlight.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h5>{highlight.title}</h5><p>{highlight.description}</p></div></li>)}</ol>
+              </section>
+              <section className={styles.detailSection}>
+                <h4>Product capabilities</h4>
+                <ul className={styles.features}>{project.features.map(feature => <li key={feature}><Check size={14} aria-hidden="true" /><span>{feature}</span></li>)}</ul>
+              </section>
+              <section className={styles.detailSection}>
+                <h4>Backend toolkit</h4><div className={styles.tags}>{project.technologies.map(technology => <span key={technology}>{technology}</span>)}</div>
+              </section>
+              {project.architectureNote && <p className={styles.note}><strong>Architecture context</strong>{project.architectureNote}</p>}
+              {project.productNote && <p className={styles.note}><strong>Product scope</strong>{project.productNote}</p>}
+            </div>
+            <div className={styles.media} key={`${project.id}-images`}>
+              <div className={styles.mediaHeader}><span>PRODUCT SCREENS</span><span>{String(selectedImage + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}</span></div>
+              <div className={`${styles.screenStage}${zoomedImage ? ` ${styles.zoomed}` : ""}`} data-device={project.device}>
+                <button className={styles.zoomButton} type="button" onClick={() => setZoomedImage(value => !value)} aria-label={zoomedImage ? "Zoom out of screenshot" : "Zoom into screenshot"} aria-pressed={zoomedImage}>{zoomedImage ? <ZoomOut size={17} /> : <ZoomIn size={17} />}</button>
+                <ProjectDevice device={project.device} image={project.images[selectedImage] ?? project.images[0]} title={project.title} />
+              </div>
+              <div className={styles.screenCaption} aria-live="polite"><button type="button" onClick={() => changeImage(-1)} aria-label="Previous project screenshot"><ArrowLeft size={17} /></button><p>{project.images[selectedImage]?.caption}</p><button type="button" onClick={() => changeImage(1)} aria-label="Next project screenshot"><ArrowRight size={17} /></button></div>
+              <div className={styles.thumbnails} aria-label={`${project.title} screenshots`}>
+                {project.images.map((image, index) => <button key={image.src} type="button" aria-label={`Show ${image.caption}`} aria-pressed={selectedImage === index} onClick={() => { setSelectedImage(index); setZoomedImage(false); }}>
+                  <span className={styles.thumbnailImage}><Image src={image.src} alt="" fill sizes="(max-width: 760px) 20vw, 130px" draggable={false} /></span>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </button>)}
+              </div>
+              <p className={styles.keyboardHint}>Arrow keys: screens <span>·</span> Alt + arrows: projects</p>
+            </div>
           </div>
           <div className={styles.sheetNavigation}>
-            <button type="button" onClick={() => changeProject(-1)}><ArrowLeft size={17} />{showcaseProjects[wrap((opened ?? 0) - 1, showcaseProjects.length)].title}</button>
-            <span>{String((opened ?? 0) + 1).padStart(2, "0")} / {String(showcaseProjects.length).padStart(2, "0")}</span>
-            <button type="button" onClick={() => changeProject(1)}>{showcaseProjects[wrap((opened ?? 0) + 1, showcaseProjects.length)].title}<ArrowRight size={17} /></button>
+            <button type="button" aria-label="Previous project details" onClick={() => changeProject(-1)}><ArrowLeft size={17} aria-hidden="true" /><span>{showcaseProjects[wrap(opened - 1, showcaseProjects.length)].title}</span></button>
+            <span>{project.number} / {String(showcaseProjects.length).padStart(2, "0")}</span>
+            <button type="button" aria-label="Next project details" onClick={() => changeProject(1)}><span>{showcaseProjects[wrap(opened + 1, showcaseProjects.length)].title}</span><ArrowRight size={17} aria-hidden="true" /></button>
           </div>
-        </div>
+        </div>}
       </dialog>
     </div>
   );

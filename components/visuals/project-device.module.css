@@ -1,0 +1,17 @@
+.device { position: relative; width: min(74%, 270px); padding: 6px; border: 1px solid #78969c; border-radius: 30px; background: linear-gradient(145deg, #344850, #08141b 40%, #1d353c); box-shadow: 0 25px 45px #0006, inset 0 0 0 2px #0a1720; }
+.screen { overflow: hidden; border-radius: 24px; background: #fff; }
+.screen img { display: block; width: 100%; height: auto; }
+.device[data-device="phone"]::before { position: absolute; left: -3px; top: 20%; content: ""; width: 2px; height: 8%; border-radius: 2px; background: #526d75; }
+.device[data-device="tablet"] { width: min(86%, 370px); padding: 14px; border-radius: 25px; }
+.device[data-device="tablet"]::before { position: absolute; left: calc(50% - 2px); top: 5px; content: ""; width: 4px; height: 4px; border-radius: 50%; background: #617e82; }
+.device[data-device="tablet"] .screen { border-radius: 12px; }
+.device[data-device="browser"] { width: 100%; padding: 6px; border-radius: 14px; }
+.device[data-device="browser"] .screen { border-radius: 5px 5px 9px 9px; }
+.device[data-device="poster"] { width: min(74%, 270px); padding: 2px; border-radius: 14px; }
+.device[data-device="poster"] .screen { border-radius: 12px; }
+.chrome { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 27px; padding: 0 8px 5px; color: var(--muted); }
+.chrome > span { display: flex; gap: 4px; flex-shrink: 0; }
+.chrome i { width: 4px; height: 4px; border-radius: 50%; background: #6b9498; }
+.chrome i:nth-child(2) { opacity: .6; }
+.chrome i:nth-child(3) { opacity: .3; }
+.chrome small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 8px var(--font-geist-mono), monospace; }

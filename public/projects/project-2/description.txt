@@ -1,0 +1,12 @@
+📱 iLearnReady: Offline-First iPad Learning Application
+iLearnReady is an advanced, high-performance iPad learning platform designed around an offline-first architectural paradigm. The application empowers users with continuous access to rich educational materials, progress tracking, and examination preparation environments without requiring active network connectivity.
+🛠 Tech Stack & Architecture
+The platform leverages a modern, decoupled client-server architecture engineered for optimal data consistency and responsiveness:
+• Frontend (Client): Developed using Flutter to deliver a unified, smooth, and highly responsive UI native to iPadOS.
+• Local Storage (Offline Cache): Utilizes an embedded relational SQLite database for high-throughput, low-latency client-side structured storage and robust transactional management.
+• Backend API Ecosystem: Powered by a stateless Node.js and Express.js web server facilitating optimized RESTful endpoints for secure asset distribution and cloud authentication.
+• Data Lifecycle: Employs intelligent multi-master synchronization mechanics to effortlessly reconcile local transactional state histories with the backend ecosystem upon network re-establishment.
+
+
+
+https://apps.apple.com/us/app/ilearnready/id6761988618

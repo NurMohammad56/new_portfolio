@@ -25,7 +25,7 @@ export const careerStages = [
     location: "Mohakhali, Dhaka",
     logoId: "scaleup",
     role: "Backend Developer",
-    duration: "MAR 2025 — PRESENT",
+    duration: "MAR 2025 - PRESENT",
     summary:
       "Design and deploy scalable RESTful APIs for multiple client-facing products. Optimize MongoDB queries through careful data modeling and implement secure authentication and authorization with JWT and role-based access control.",
     highlights: [
@@ -46,7 +46,7 @@ export const careerStages = [
     location: "Banani, Dhaka",
     logoId: "arabian",
     role: "Full Stack Developer",
-    duration: "JUN 2024 — JAN 2025",
+    duration: "JUN 2024 - JAN 2025",
     summary:
       "Led full-stack development of the company's primary web platform across core application features. Built authentication and data-synchronization systems with Node.js and implemented real-time notifications to support application workflows.",
     highlights: [

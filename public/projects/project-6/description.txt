@@ -1,0 +1,13 @@
+🗺️ GoInsight: Offline-First Enterprise Travel Companion App
+GoInsight is a data-resilient, offline-first mobile application optimized for cross-platform distribution. It acts as a secure container for traveler itineraries, credential storage, and dynamic logistical sync protocols.
+🛠 Architecture Stack & Data Flow
+The application uses a robust client-server caching pipeline built to combat global data dead zones:
+• Frontend Interface (Flutter): Provides an expansive, responsive user interface capable of handling heavy multimedia itineraries, high-contrast digital ticket scanning (PDFs/Barcodes), and fluid screen transitions on modern iOS and Android viewports.
+• On-Device Encrypted Database (SQLite): Serves as the primary localized data engine. Caches complete relational JSON payloads for travel schedules, offline PDF links, and emergency telephone vectors to provide instant launch benchmarks.
+• Backend Gateway Orchestrator (Node.js & Express.js): Handles high-frequency RESTful transactions, payload serialization, and secure authentication for client data distribution.
+• Differential Synchronization: Implements intelligent network event boundaries to silently check version tokens and download incremental data diffs whenever network handshakes succeed.
+
+
+https://play.google.com/store/apps/details?id=com.inside.travel
+
+https://apps.apple.com/gb/app/goinsight/id6796300411 

@@ -21,7 +21,7 @@ export function About() {
         <div className="about-editorial-grid">
           <Reveal className="about-statement" delay={0.08}>
             <p>
-              I work across the <em>whole product surface</em>—so an idea does not get
+              I work across the <em>whole product surface</em>-so an idea does not get
               lost between design, code, infrastructure, and launch.
             </p>
             <div className="about-signature">

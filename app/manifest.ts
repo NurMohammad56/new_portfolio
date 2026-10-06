@@ -7,7 +7,7 @@ const description =
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Nur Mohammad — Developer Portfolio",
+    name: "Nur Mohammad - Developer Portfolio",
     short_name: "Nur Portfolio",
     description,
     start_url: "/",

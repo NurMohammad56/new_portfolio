@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { portfolioPalette as palette, portfolioTheme } from "@/data/palette";
 
 export const alt =
-  "Nur Mohammad — Backend Developer portfolio";
+  "Nur Mohammad - Backend Developer portfolio";
 export const size = {
   width: 1200,
   height: 630,

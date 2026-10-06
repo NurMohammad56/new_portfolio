@@ -43,3 +43,6 @@ next-env.d.ts
 # qa / test artifacts
 .qa-*
 project-qa-*.png
+
+# Private project source notes may contain test-account credentials.
+/docs/project-source/

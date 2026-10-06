@@ -1,0 +1,9 @@
+https://play.google.com/store/apps/details?id=com.solidsteps.app
+
+SolidSteps is a simple wellness app designed for approved users who want a private, minimal way to record daily step activity.
+
+Users can manually enter step counts, view simple activity information, and access account-based features after login. SolidSteps is intentionally lightweight and easy to use, with a clean interface focused on basic daily step entry.
+
+Some account-based support features are available only to users who have been pre-registered in the backend/admin system. Those features are not available through public self-registration and require approved account setup and user verification.
+
+SolidSteps is not a medical device and does not provide medical advice, diagnosis, treatment, emergency dispatch, or emergency response services. Account-based support notification features, where available, are intended only to notify a designated support contact for follow-up outside the app.

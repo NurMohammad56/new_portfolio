@@ -8502,7 +8502,7 @@ button {
   }
 }
 
-/* Section 03 — factual delivery record */
+/* Section 03 - factual delivery record */
 .delivery-record-section {
   overflow: clip;
 }
@@ -8617,7 +8617,7 @@ button {
   color: var(--signal);
 }
 
-/* Section 04 — recruiter-first career progression */
+/* Section 04 - recruiter-first career progression */
 .career-section {
   overflow: clip;
 }
@@ -9407,7 +9407,7 @@ button {
   }
 }
 
-/* Mobile app visual — Inspectors Path */
+/* Mobile app visual - Inspectors Path */
 .project-art--mobile-app {
   display: flex;
   flex-direction: column;
@@ -12199,7 +12199,7 @@ button {
 }
 
 /* ==========================================================================
-   PAYMENTS + DEPLOYMENT — 2026 CONTROL-ROOM REDESIGN
+   PAYMENTS + DEPLOYMENT - 2026 CONTROL-ROOM REDESIGN
    ========================================================================== */
 
 .section-payments {

@@ -1,0 +1,23 @@
+Zentrofix connects homeowners with skilled local service providers for home repair, maintenance, and improvement jobs.
+
+Homeowners can post jobs, add details, set a location, upload images, review applicants, chat with tradespeople, track job progress, make payments, and leave feedback after the work is complete.
+
+Service providers can discover nearby jobs, view job details, apply for work, manage current jobs, communicate with homeowners, and build their profile with reviews and job history.
+
+With Zentrofix, managing home service work is easier from start to finish.
+
+Key features:
+- Post home service jobs with photos, category, location, and budget
+- Find jobs near your area
+- Chat between homeowners and service providers
+- Track job progress
+- Manage applications and job details
+- View profiles, reviews, and service history
+- In-app notifications for job updates
+- Secure account, profile, and location management
+
+Whether you need help at home or want to find local service work, Zentrofix helps you connect, communicate, and get the job done
+
+
+
+https://play.google.com/store/apps/details?id=com.zentrofix.app

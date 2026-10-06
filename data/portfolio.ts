@@ -1,3 +1,5 @@
+import { showcaseProjects } from "./project-showcase";
+
 /**
  * Portfolio copy and structured content sourced from the supplied brief.
  *
@@ -95,10 +97,7 @@ export interface ProcessStep {
   readonly icon: LucideIconId;
 }
 
-export type DeploymentLaneId =
-  | "web"
-  | "backend"
-  | "database";
+export type DeploymentLaneId = "web" | "backend" | "database";
 
 export interface DeploymentLane {
   readonly id: DeploymentLaneId;
@@ -180,7 +179,7 @@ export const siteIdentity = {
   availabilityLabel: "AVAILABLE FOR SELECTED PROJECTS",
   heroHeadline: "Backend systems for mobile & web that stay reliable.",
   heroDescription:
-    "I build reliable APIs, data systems, real-time features, and production infrastructure for mobile and web applications—with AI-assisted frontend support when needed.",
+    "I build reliable APIs, data systems, real-time features, and production infrastructure for mobile and web applications-with AI-assisted frontend support when needed.",
   primaryCta: {
     label: "View Live Projects",
     href: "#projects",
@@ -241,9 +240,15 @@ export const techGroups = [
     icon: "PanelTop",
     technologies: [
       { name: "React", description: "Frontend integration and UI delivery." },
-      { name: "Next.js", description: "AI-assisted web application development." },
+      {
+        name: "Next.js",
+        description: "AI-assisted web application development.",
+      },
       { name: "TypeScript", description: "Type-safe application development." },
-      { name: "JavaScript", description: "Frontend logic and API integration." },
+      {
+        name: "JavaScript",
+        description: "Frontend logic and API integration.",
+      },
       {
         name: "Tailwind CSS",
         description: "Responsive utility-first styling.",
@@ -256,7 +261,10 @@ export const techGroups = [
         name: "AI coding tools",
         description: "Faster UI implementation and iteration.",
       },
-      { name: "API integration", description: "Connecting interfaces to backend systems." },
+      {
+        name: "API integration",
+        description: "Connecting interfaces to backend systems.",
+      },
     ],
   },
   {
@@ -268,7 +276,10 @@ export const techGroups = [
         name: "Mobile REST APIs",
         description: "Backend interfaces for mobile applications.",
       },
-      { name: "Push notifications", description: "Backend notification workflows." },
+      {
+        name: "Push notifications",
+        description: "Backend notification workflows.",
+      },
     ],
   },
   {
@@ -277,7 +288,10 @@ export const techGroups = [
     icon: "Server",
     technologies: [
       { name: "Node.js", description: "JavaScript server runtimes." },
-      { name: "Nest.js", description: "Structured and maintainable backend architecture." },
+      {
+        name: "Nest.js",
+        description: "Structured and maintainable backend architecture.",
+      },
       { name: "Express.js", description: "Web services and API routing." },
       { name: "MongoDB", description: "Document-based application data." },
       { name: "PostgreSQL", description: "Relational data and transactions." },
@@ -287,7 +301,10 @@ export const techGroups = [
         name: "Socket.IO",
         description: "Real-time bidirectional communication.",
       },
-      { name: "Queues & workers", description: "Reliable asynchronous processing." },
+      {
+        name: "Queues & workers",
+        description: "Reliable asynchronous processing.",
+      },
     ],
   },
   {
@@ -359,31 +376,36 @@ export const services = [
   {
     number: "02",
     title: "AI-Assisted Frontend",
-    description: "React and Next.js interfaces built with AI assistance, connected thoughtfully to backend APIs.",
+    description:
+      "React and Next.js interfaces built with AI assistance, connected thoughtfully to backend APIs.",
     icon: "PanelTop",
   },
   {
     number: "03",
     title: "Mobile App Backends",
-    description: "The APIs, authentication, data, notifications, and integrations mobile products depend on.",
+    description:
+      "The APIs, authentication, data, notifications, and integrations mobile products depend on.",
     icon: "Smartphone",
   },
   {
     number: "04",
     title: "Data & System Design",
-    description: "MongoDB and PostgreSQL modeling, relationships, transactions, pagination, and query optimization.",
+    description:
+      "MongoDB and PostgreSQL modeling, relationships, transactions, pagination, and query optimization.",
     icon: "Database",
   },
   {
     number: "05",
     title: "Real-time & Integrations",
-    description: "WebSockets, queues, workers, payments, webhooks, OAuth, notifications, and third-party APIs.",
+    description:
+      "WebSockets, queues, workers, payments, webhooks, OAuth, notifications, and third-party APIs.",
     icon: "PlugZap",
   },
   {
     number: "06",
     title: "Deployment & Production Setup",
-    description: "Backend services, frontend applications, and websites deployed on Linux VPS or Vercel with practical production configuration.",
+    description:
+      "Backend services, frontend applications, and websites deployed on Linux VPS or Vercel with practical production configuration.",
     icon: "ServerCog",
   },
 ] as const satisfies readonly Service[];
@@ -429,9 +451,24 @@ export const processSteps = [
 ] as const satisfies readonly ProcessStep[];
 
 export const deploymentLanes = [
-  { id: "web", label: "FRONTEND & WEBSITES", icon: "Globe2", destinations: ["React / Next.js", "Vercel", "Production builds"] },
-  { id: "backend", label: "BACKEND SERVICES", icon: "Server", destinations: ["Node.js / Express", "Linux VPS", "PM2"] },
-  { id: "database", label: "DATA & INFRASTRUCTURE", icon: "Database", destinations: ["MongoDB / PostgreSQL", "Nginx", "DNS & HTTPS"] },
+  {
+    id: "web",
+    label: "FRONTEND & WEBSITES",
+    icon: "Globe2",
+    destinations: ["React / Next.js", "Vercel", "Production builds"],
+  },
+  {
+    id: "backend",
+    label: "BACKEND SERVICES",
+    icon: "Server",
+    destinations: ["Node.js / Express", "Linux VPS", "PM2"],
+  },
+  {
+    id: "database",
+    label: "DATA & INFRASTRUCTURE",
+    icon: "Database",
+    destinations: ["MongoDB / PostgreSQL", "Nginx", "DNS & HTTPS"],
+  },
 ] as const satisfies readonly DeploymentLane[];
 
 export const productionPipeline = [
@@ -458,70 +495,109 @@ export interface CicdStage {
 
 export const cicdStages: readonly CicdStage[] = [
   {
-    id: "plan", phase: "CI", stepNumber: "01", name: "Plan & Branch",
+    id: "plan",
+    phase: "CI",
+    stepNumber: "01",
+    name: "Plan & Branch",
     subtitle: "Requirements & version control",
-    description: "Define the API or website change, review its dependencies, and work in a focused Git branch.",
-    iconName: "GitBranch", tools: ["Git", "GitHub", "Pull requests"],
+    description:
+      "Define the API or website change, review its dependencies, and work in a focused Git branch.",
+    iconName: "GitBranch",
+    tools: ["Git", "GitHub", "Pull requests"],
     terminalCommand: "git switch -c feature/api-update",
   },
   {
-    id: "code", phase: "CI", stepNumber: "02", name: "Code & Types",
+    id: "code",
+    phase: "CI",
+    stepNumber: "02",
+    name: "Code & Types",
     subtitle: "Backend logic & frontend integration",
-    description: "Implement validated backend endpoints and connect React or Next.js interfaces to the API.",
-    iconName: "Code2", tools: ["Node.js", "Express", "TypeScript", "React / Next.js"],
+    description:
+      "Implement validated backend endpoints and connect React or Next.js interfaces to the API.",
+    iconName: "Code2",
+    tools: ["Node.js", "Express", "TypeScript", "React / Next.js"],
     terminalCommand: "npx tsc --noEmit",
   },
   {
-    id: "build", phase: "CI", stepNumber: "03", name: "Production Build",
+    id: "build",
+    phase: "CI",
+    stepNumber: "03",
+    name: "Production Build",
     subtitle: "Release-ready application",
-    description: "Create production builds and check environment configuration before publishing a release.",
-    iconName: "Blocks", tools: ["npm", "Next.js build", "Environment variables"],
+    description:
+      "Create production builds and check environment configuration before publishing a release.",
+    iconName: "Blocks",
+    tools: ["npm", "Next.js build", "Environment variables"],
     terminalCommand: "npm ci && npm run build",
   },
   {
-    id: "test", phase: "CI", stepNumber: "04", name: "Test & Review",
+    id: "test",
+    phase: "CI",
+    stepNumber: "04",
+    name: "Test & Review",
     subtitle: "API checks & application quality",
-    description: "Check authentication, validation, API responses, and critical website flows before deployment.",
-    iconName: "FlaskConical", tools: ["Postman", "ESLint", "GitHub Actions"],
+    description:
+      "Check authentication, validation, API responses, and critical website flows before deployment.",
+    iconName: "FlaskConical",
+    tools: ["Postman", "ESLint", "GitHub Actions"],
     terminalCommand: "npm run lint",
   },
   {
-    id: "release", phase: "CD", stepNumber: "05", name: "Prepare Release",
+    id: "release",
+    phase: "CD",
+    stepNumber: "05",
+    name: "Prepare Release",
     subtitle: "Versioning & configuration",
-    description: "Review the release changes, keep secrets outside source control, and retain the previous version for rollback.",
-    iconName: "Rocket", tools: ["Git tags", "Release notes", "Environment config"],
+    description:
+      "Review the release changes, keep secrets outside source control, and retain the previous version for rollback.",
+    iconName: "Rocket",
+    tools: ["Git tags", "Release notes", "Environment config"],
     terminalCommand: "git tag v1.0.0",
   },
   {
-    id: "deploy", phase: "CD", stepNumber: "06", name: "Deploy",
+    id: "deploy",
+    phase: "CD",
+    stepNumber: "06",
+    name: "Deploy",
     subtitle: "Websites & backend services",
-    description: "Publish the frontend to Vercel or a web server, and run backend services on a configured Linux VPS.",
-    iconName: "CloudUpload", tools: ["Vercel", "Linux VPS", "PM2"],
+    description:
+      "Publish the frontend to Vercel or a web server, and run backend services on a configured Linux VPS.",
+    iconName: "CloudUpload",
+    tools: ["Vercel", "Linux VPS", "PM2"],
     terminalCommand: "pm2 reload ecosystem.config.js --update-env",
   },
   {
-    id: "operate", phase: "CD", stepNumber: "07", name: "Configure Server",
+    id: "operate",
+    phase: "CD",
+    stepNumber: "07",
+    name: "Configure Server",
     subtitle: "Domains, reverse proxy & HTTPS",
-    description: "Configure Nginx routing, domain DNS, SSL certificates, and application process management.",
-    iconName: "ServerCog", tools: ["Nginx", "PM2", "DNS", "SSL / Certbot"],
+    description:
+      "Configure Nginx routing, domain DNS, SSL certificates, and application process management.",
+    iconName: "ServerCog",
+    tools: ["Nginx", "PM2", "DNS", "SSL / Certbot"],
     terminalCommand: "sudo nginx -t",
   },
   {
-    id: "monitor", phase: "CD", stepNumber: "08", name: "Monitor & Maintain",
+    id: "monitor",
+    phase: "CD",
+    stepNumber: "08",
+    name: "Monitor & Maintain",
     subtitle: "Logs & health checks",
-    description: "Review application logs, verify live endpoints, and diagnose process or server issues after each release.",
-    iconName: "Gauge", tools: ["PM2 logs", "Health checks", "Nginx logs"],
+    description:
+      "Review application logs, verify live endpoints, and diagnose process or server issues after each release.",
+    iconName: "Gauge",
+    tools: ["PM2 logs", "Health checks", "Nginx logs"],
     terminalCommand: "pm2 status",
   },
 ] as const;
-
 
 export const experience = {
   metric: "2+",
   title: "Years in Professional Development",
   areas: [
-    "Backend Developer — Scaleup IT Limited · Mar 2025–Present",
-    "Full Stack Developer — Arabian Services Company · Jun 2024–Jan 2025",
+    "Backend Developer - Scaleup IT Limited · Mar 2025–Present",
+    "Full Stack Developer - Arabian Services Company · Jun 2024–Jan 2025",
     "Scalable RESTful APIs and deployment",
     "MongoDB data modeling and query optimization",
     "JWT authentication and role-based access control",
@@ -595,7 +671,7 @@ export const projectCategoryOptions = [
 ] as const satisfies readonly ProjectCategory[];
 
 const projectPlaceholderLabel =
-  "PROJECT PLACEHOLDER — VERIFIED PROJECT DETAILS REQUIRED";
+  "PROJECT PLACEHOLDER - VERIFIED PROJECT DETAILS REQUIRED";
 
 /**
  * These are presentation slots, not portfolio claims. Replace null/empty fields
@@ -665,7 +741,7 @@ export const portfolioData = {
   proofPoints,
   socialLinks,
   projectCategoryOptions,
-  projects: projectPlaceholders,
+  projects: showcaseProjects,
 } as const;
 
 export type PortfolioData = typeof portfolioData;

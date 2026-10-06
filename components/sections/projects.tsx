@@ -16,7 +16,7 @@ export function Projects() {
             index="03"
             eyebrow="Selected work"
             title="The work, in focus."
-            description="Mobile backends, web platforms, and connected systems. Demo previews for now; real work coming soon."
+            description="Eight products. The backend work behind commerce, learning, local discovery, and everyday mobile experiences."
           />
         </Reveal>
 

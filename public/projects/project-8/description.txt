@@ -1,0 +1,43 @@
+Renbite helps food lovers discover the best restaurants, dishes, events, and dining experiences around them.
+
+Whether you're looking for a new restaurant, planning your next meal, exploring local food events, or managing your restaurant business, Renbite brings everything together in one easy-to-use platform.
+
+For Food Lovers:
+• Discover nearby restaurants and food spots
+• Search restaurants, dishes, cuisines, and locations
+• View restaurant details, menus, ratings, and reviews
+• Save favorite restaurants for quick access
+• Explore food-related events and experiences
+• Get personalized recommendations
+• Browse restaurants and menus through Guest Mode before creating an account
+• Use interactive maps to discover nearby dining options
+
+For Restaurant Owners:
+• Create and manage restaurant profiles
+• Showcase menus, dishes, and restaurant information
+• Host and manage food events
+• Connect payment services through Stripe
+• Manage restaurant visibility and customer engagement
+• Access restaurant-focused management tools
+• Update restaurant location and business information
+
+Key Features:
+• Restaurant Discovery
+• Food & Dining Search
+• Restaurant Reviews & Ratings
+• Interactive Maps
+• Food Events & Experiences
+• Favorites & Bookmarks
+• Secure User Accounts
+• Restaurant Management Tools
+• Stripe Payment Integration
+• Dark Mode Support
+
+Why Choose Renbite?
+Renbite is designed to connect food lovers with great dining experiences while helping restaurant owners grow and manage their businesses. From discovering local restaurants to attending food events and managing restaurant operations, Renbite provides a complete food and dining platform.
+
+Download Renbite today and start exploring the best dining experiences around you.
+
+https://play.google.com/store/apps/details?id=com.restafood.kennygee
+
+https://apps.apple.com/us/app/renbite/id6764725322
