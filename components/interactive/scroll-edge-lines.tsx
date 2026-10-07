@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { m, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { m, useMotionValue, useSpring, useTransform } from "motion/react";
 import styles from "./scroll-edge-lines.module.css";
 
 // One continuous wave, kept inside the outer gutters rather than over content.
@@ -12,7 +12,6 @@ const wave = Array.from({ length: 161 }, (_, index) => {
 }).join(" ");
 
 export function ScrollEdgeLines() {
-  const reduced = useReducedMotion();
   const scrollYProgress = useMotionValue(0);
   useEffect(() => {
     let frame = 0;
@@ -38,10 +37,9 @@ export function ScrollEdgeLines() {
       {["left", "right"].map(side => <div key={side} className={`${styles.line} ${styles[side]}`}>
         <svg className={styles.wave} viewBox="0 0 40 1000" preserveAspectRatio="none" fill="none">
         <path d={wave} className={styles.track} />
-        {!reduced && <>
-          <m.path d={wave} className={styles.glow} strokeDasharray="155 1000" style={{ strokeDashoffset: offset }} />
-          <m.path d={wave} className={styles.signal} strokeDasharray="155 1000" style={{ strokeDashoffset: offset }} />
-        </>}
+        {/* CSS hides these for reduced motion; initial markup must match SSR. */}
+        <m.path d={wave} className={styles.glow} strokeDasharray="155 1000" style={{ strokeDashoffset: offset }} />
+        <m.path d={wave} className={styles.signal} strokeDasharray="155 1000" style={{ strokeDashoffset: offset }} />
         </svg>
         {[110, 270, 430, 590, 750, 910].map(y => <i key={y} data-edge-point className={styles.point} style={{ left: `${(20 + Math.sin(y / 1000 * Math.PI * 5) * 11) / 40 * 100}%`, top: `${y / 10}%` }} />)}
       </div>)}

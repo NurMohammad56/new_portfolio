@@ -1,0 +1,7 @@
+.toggle { display: grid; place-items: center; flex: 0 0 auto; width: 42px; height: 42px; padding: 0; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--text); background: var(--ink-elevated); cursor: pointer; transition: background-color 220ms, border-color 220ms, color 220ms; }
+.toggle:hover { color: var(--signal); border-color: var(--signal); background: rgba(var(--signal-rgb), .06); }
+.toggle > svg { grid-area: 1 / 1; }
+.moon { display: none; }
+:global(html[data-theme="light"]) .sun { display: none; }
+:global(html[data-theme="light"]) .moon { display: block; }
+@media (prefers-reduced-motion: reduce) { .toggle { transition: none; } }

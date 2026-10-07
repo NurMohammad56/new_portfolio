@@ -6,13 +6,13 @@
 .stage[data-webgl="true"] .card:focus-visible { outline: 2px solid var(--signal); outline-offset: -6px; }
 .stage { position: relative; display: flex; gap: 24px; height: clamp(330px, 44vw, 620px); overflow: hidden; cursor: grab; touch-action: pan-y; }
 .stage[data-dragging="true"], .stage[data-dragging="true"] * { cursor: grabbing; }
-.card { position: relative; flex: 0 0 58%; min-width: 0; overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: 24px; background: var(--ink-soft); color: var(--paper); text-align: left; cursor: inherit; user-select: none; }
+.card { position: relative; flex: 0 0 58%; min-width: 0; overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: 24px; background: var(--ink-soft); color: var(--media-text); text-align: left; cursor: inherit; user-select: none; }
 .stage[data-ready="true"] .card { position: absolute; top: 0; left: 0; will-change: transform; }
 .card > img { object-fit: cover; pointer-events: none; }
-.caption { position: absolute; inset: auto 0 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding: 50px 26px 24px; background: linear-gradient(transparent, rgba(var(--ink-rgb), .9)); pointer-events: none; }
-.caption small { display: block; margin-bottom: 6px; font-size: 11px; color: var(--signal); }
+.caption { position: absolute; inset: auto 0 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding: 50px 26px 24px; background: linear-gradient(transparent, rgba(var(--media-ink-rgb), .9)); pointer-events: none; }
+.caption small { display: block; margin-bottom: 6px; font-size: 11px; color: var(--media-signal); }
 .caption strong { font-size: 26px; font-weight: 500; letter-spacing: -.04em; }
-.cardArrow { display: grid; place-items: center; width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%; background: var(--signal); color: var(--ink); opacity: 0; transform: scale(.8); transition: opacity 250ms, transform 250ms; }
+.cardArrow { display: grid; place-items: center; width: 42px; height: 42px; flex-shrink: 0; border-radius: 50%; background: var(--media-signal); color: var(--media-ink); opacity: 0; transform: scale(.8); transition: opacity 250ms, transform 250ms; }
 .card:hover .cardArrow, .card:focus-visible .cardArrow { opacity: 1; transform: scale(1); }
 .card:focus-visible { outline-offset: -4px; }
 .controls { display: flex; align-items: center; justify-content: space-between; gap: 24px; width: var(--shell); margin: 20px auto 0; }

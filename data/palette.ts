@@ -14,29 +14,74 @@ export const portfolioPalette = {
   signalLight: "#95d8d2",
 } as const;
 
+// Edit either palette here to change the whole site's colors.
+export const lightPortfolioPalette = {
+  ink: "#f4f8f7",
+  inkElevated: "#ffffff",
+  inkSoft: "#e3eeeb",
+  heroSurface: "#eef5f3",
+  paper: "#102b30",
+  paperDeep: "#26494e",
+  text: "#102b30",
+  muted: "#526c70",
+  mutedLight: "#526c70",
+  signal: "#007b72",
+  signalDeep: "#08635d",
+  signalLight: "#176b65",
+} as const;
+
+type Palette = { [Key in keyof typeof portfolioPalette]: string };
+export type PortfolioTheme = "dark" | "light";
+export const THEME_STORAGE_KEY = "nur-portfolio-theme";
+export const THEME_EVENT = "portfolio-theme-change";
+
 const rgb = (hex: string) => [1, 3, 5].map(offset => parseInt(hex.slice(offset, offset + 2), 16)).join(", ");
 
-export const portfolioTheme = {
-  "--ink": portfolioPalette.ink,
-  "--ink-elevated": portfolioPalette.inkElevated,
-  "--ink-soft": portfolioPalette.inkSoft,
-  "--hero-surface": portfolioPalette.heroSurface,
-  "--paper": portfolioPalette.paper,
-  "--paper-deep": portfolioPalette.paperDeep,
-  "--text": portfolioPalette.text,
-  "--muted": portfolioPalette.muted,
-  "--muted-light": portfolioPalette.mutedLight,
-  "--signal": portfolioPalette.signal,
-  "--signal-deep": portfolioPalette.signalDeep,
-  "--signal-light": portfolioPalette.signalLight,
-  "--ink-rgb": rgb(portfolioPalette.ink),
-  "--panel-rgb": rgb(portfolioPalette.inkElevated),
-  "--text-rgb": rgb(portfolioPalette.text),
-  "--signal-rgb": rgb(portfolioPalette.signal),
-  "--signal-deep-rgb": rgb(portfolioPalette.signalDeep),
-  "--signal-light-rgb": rgb(portfolioPalette.signalLight),
-  "--signal-soft": `rgba(${rgb(portfolioPalette.signal)}, 0.08)`,
-  "--line": `rgba(${rgb(portfolioPalette.paper)}, 0.12)`,
-  "--line-strong": `rgba(${rgb(portfolioPalette.paper)}, 0.24)`,
-  "--line-dark": `rgba(${rgb(portfolioPalette.ink)}, 0.18)`,
-} as const;
+const createTheme = (palette: Palette) => ({
+  "--ink": palette.ink,
+  "--ink-elevated": palette.inkElevated,
+  "--ink-soft": palette.inkSoft,
+  "--hero-surface": palette.heroSurface,
+  "--paper": palette.paper,
+  "--paper-deep": palette.paperDeep,
+  "--text": palette.text,
+  "--muted": palette.muted,
+  "--muted-light": palette.mutedLight,
+  "--signal": palette.signal,
+  "--signal-deep": palette.signalDeep,
+  "--signal-light": palette.signalLight,
+  "--ink-rgb": rgb(palette.ink),
+  "--panel-rgb": rgb(palette.inkElevated),
+  "--text-rgb": rgb(palette.text),
+  "--signal-rgb": rgb(palette.signal),
+  "--signal-deep-rgb": rgb(palette.signalDeep),
+  "--signal-light-rgb": rgb(palette.signalLight),
+  "--signal-soft": `rgba(${rgb(palette.signal)}, 0.08)`,
+  "--line": `rgba(${rgb(palette.text)}, 0.12)`,
+  "--line-strong": `rgba(${rgb(palette.text)}, 0.24)`,
+  "--line-dark": `rgba(${rgb(palette.ink)}, 0.18)`,
+  // Screenshot covers remain on a dark photographic scrim in either theme.
+  "--media-ink": portfolioPalette.ink,
+  "--media-ink-rgb": rgb(portfolioPalette.ink),
+  "--media-text": portfolioPalette.text,
+  "--media-signal": portfolioPalette.signal,
+});
+
+export const portfolioThemes = {
+  dark: createTheme(portfolioPalette),
+  light: createTheme(lightPortfolioPalette),
+};
+export const portfolioTheme = portfolioThemes.dark;
+
+// A small parser-executed head script applies saved colors before the body paints.
+// Storage may be unavailable in private/embedded browsing; the dark default is safe.
+export const themeInitializationScript = `(()=>{
+  let theme="dark";
+  try { if(localStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)})==="light") theme="light"; } catch {}
+  const themes=${JSON.stringify(portfolioThemes)};
+  const root=document.documentElement;
+  Object.entries(themes[theme]).forEach(([key,value])=>root.style.setProperty(key,value));
+  root.dataset.theme=theme;
+  root.style.colorScheme=theme;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content",themes[theme]["--ink"]);
+})()`;

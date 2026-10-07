@@ -64,6 +64,14 @@ html {
   scroll-padding-top: 84px;
 }
 
+html[data-theme="light"] { color-scheme: light; }
+html[data-theme="light"] .nav-identity:hover .nav-lettermark { color: var(--signal-deep); }
+
+/* Keep the theme switch available in the fixed header at every screen size. */
+@media (max-width: 760px) { .text-navigation .nav-inner > [data-theme-toggle] { margin-left: auto; } }
+@media (max-width: 560px) { .text-navigation .nav-inner { gap: 12px; } }
+@media (max-width: 420px) { .nav-identity .nav-role { max-width: 104px; font-size: 7px; } }
+
 body {
   min-width: 320px;
   margin: 0;
@@ -265,7 +273,6 @@ button {
   height: 78px;
   border-bottom: 1px solid transparent;
   transition:
-    background-color 350ms ease,
     border-color 350ms ease,
     height 350ms var(--ease-out);
 }

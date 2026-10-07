@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { portfolioPalette } from "@/data/palette";
+import { portfolioPalette, THEME_EVENT } from "@/data/palette";
 import { flowFieldPoint } from "@/components/visuals/flow-field-geometry";
 
 // Shared by every wire and particle, so the cursor deforms the surface locally
@@ -104,6 +104,12 @@ export function createHeroFlowRenderer(canvas: HTMLCanvasElement) {
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   });
   group.add(new THREE.Points(particleGeometry, particleMaterial));
+  const syncColor = () => {
+    uniforms.uColor.value.set(getComputedStyle(document.documentElement).getPropertyValue("--signal").trim() || portfolioPalette.signal);
+    renderer.render(scene, camera);
+  };
+  syncColor();
+  window.addEventListener(THEME_EVENT, syncColor);
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
   const cursor = new THREE.Vector3();
@@ -146,6 +152,7 @@ export function createHeroFlowRenderer(canvas: HTMLCanvasElement) {
   const dispose = () => {
     if (disposed) return;
     disposed = true;
+    window.removeEventListener(THEME_EVENT, syncColor);
     geometry.dispose(); material.dispose(); particleGeometry.dispose(); particleMaterial.dispose(); renderer.dispose();
   };
   return { resize, draw, dispose };

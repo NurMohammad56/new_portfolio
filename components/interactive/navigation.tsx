@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Download, FileText, Menu, X } from "lucide-react";
 import { m, useScroll, useSpring } from "motion/react";
 import { NmLettermark } from "@/components/ui/nm-lettermark";
+import { ThemeToggle } from "./theme-toggle";
 
 export type NavigationItem = {
   label: string;
@@ -113,6 +114,8 @@ export function Navigation({ items }: NavigationProps) {
           <span>Download resume</span>
           <Download aria-hidden="true" size={15} strokeWidth={1.8} />
         </a>
+
+        <ThemeToggle />
 
         <button
           className="mobile-menu-button"
