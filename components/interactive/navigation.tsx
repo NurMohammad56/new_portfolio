@@ -105,8 +105,8 @@ export function Navigation({ items }: NavigationProps) {
 
         <a
           className="nav-cta"
-          href="/resume/NUR_MOHAMMAD_RESUME.pdf"
-          download="NUR_MOHAMMAD_RESUME.pdf"
+          href="/resume/Nur_Mohammad_Resume.pdf"
+          download="Nur_Mohammad_Resume.pdf"
           aria-label="Download Nur Mohammad's resume as a PDF"
         >
           <FileText aria-hidden="true" size={15} strokeWidth={1.8} />
@@ -155,8 +155,8 @@ export function Navigation({ items }: NavigationProps) {
           ))}
           <a
             className="mobile-resume-link"
-            href="/resume/NUR_MOHAMMAD_RESUME.pdf"
-            download="NUR_MOHAMMAD_RESUME.pdf"
+            href="/resume/Nur_Mohammad_Resume.pdf"
+            download="Nur_Mohammad_Resume.pdf"
             onClick={closeMenu}
             tabIndex={isOpen ? 0 : -1}
           >

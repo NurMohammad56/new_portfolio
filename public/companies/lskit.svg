@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="208" height="100" viewBox="0 0 208 100">
+  <title>LSKIT</title>
+  <desc>Clean vector rendition of the supplied red-and-white LSKIT logo.</desc>
+  <circle cx="46" cy="49" r="44" fill="#F26653"/>
+  <text x="7" y="73" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" letter-spacing="-3" fill="#FFFFFF">LS</text>
+  <text x="88" y="73" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" letter-spacing="-2" fill="#F26653">KIT</text>
+  <text x="91" y="85" font-family="Arial, Helvetica, sans-serif" font-size="5.8" font-weight="700" letter-spacing=".12" fill="#F26653">SEO · WEB DESIGN · SOFTWARE</text>
+</svg>

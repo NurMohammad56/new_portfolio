@@ -1,0 +1,110 @@
+.track { height: 360svh; margin-top: 34px; position: relative; --journal-paper: #e6eee8; --journal-ink: #143432; --journal-muted: #536e66; }
+.sticky { position: sticky; top: 88px; height: calc(100svh - 106px); max-height: 970px; display: flex; flex-direction: column; justify-content: center; padding: 14px 0; }
+.sceneHeader, .readingStatus { display: flex; justify-content: space-between; align-items: center; gap: 20px; font-family: var(--font-geist-mono), monospace; font-size: 9px; letter-spacing: .065em; color: var(--muted); }
+.sceneHeader { width: min(100%, 1060px); margin: 0 auto 8px; }
+.sceneHeader > span:first-child { color: var(--signal-light); display: flex; gap: 9px; align-items: center; }
+.scene { position: relative; display: grid; place-items: center; perspective: 2100px; flex: 1; min-height: 0; width: 100%; }
+.aura { position: absolute; width: 120%; height: 120%; pointer-events: none; background: radial-gradient(ellipse at 50% 52%, rgba(var(--signal-rgb), .065), transparent 65%); }
+.book { position: relative; width: min(1050px, 94%); height: min(590px, calc(100svh - 242px)); min-height: 430px; transform-style: preserve-3d; will-change: transform; }
+.binding { position: absolute; inset: -8px; border-radius: 6px 18px 18px 6px; background: #0b3030; border: 1px solid rgba(var(--signal-light-rgb), .28); box-shadow: 0 30px 65px rgba(0,0,0,.48), 0 8px 20px rgba(0,0,0,.4); transform: translateZ(-5px); }
+.bindingRight { left: 50%; }
+.page { position: absolute; top: 0; width: 50%; height: 100%; background: var(--journal-paper); color: var(--journal-ink); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.rightPage, .leafFront { left: 50%; border-radius: 2px 12px 12px 2px; background: linear-gradient(90deg, #c0cec3, #e6eee8 5%, #eef2eb 96%, #d4dfd4); }
+.rightPage { box-shadow: 1px 2px 0 #c3cdc5, 2px 5px 0 #e2e8df, 3px 7px 0 #afc0b4; }
+.spine { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: #869f90; transform: translateZ(1px); pointer-events: none; }
+.cover { position: absolute; inset: 0 0 0 50%; z-index: 20; transform-origin: left center; transform-style: preserve-3d; will-change: transform; }
+.coverFront, .coverBack { position: absolute; inset: -8px -8px -8px 0; border-radius: 2px 16px 16px 2px; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.coverFront { transform: translateZ(16px); overflow: hidden; padding: clamp(26px, 4vw, 50px); display: flex; flex-direction: column; background: linear-gradient(105deg, rgba(0,0,0,.6), transparent 7%, rgba(255,255,255,.025) 42%, transparent), repeating-linear-gradient(40deg, transparent 0 2px, rgba(255,255,255,.015) 2px 3px), #0d3434; border: 1px solid rgba(var(--signal-light-rgb), .35); box-shadow: inset -4px 0 10px rgba(0,0,0,.22), 4px 8px 16px rgba(0,0,0,.22); color: #b5d6bf; }
+.coverBorder { position: absolute; inset: 18px; border: 1px solid rgba(181,214,191,.15); border-radius: 4px 8px 8px 4px; pointer-events: none; }
+.coverEyebrow, .coverRole, .coverFoot, .notesEyebrow, .notesFoot, .contents > span, .chapterDuration, .recordedFocus > span { font-family: var(--font-geist-mono), monospace; font-size: 9px; line-height: 1.7; letter-spacing: .08em; }
+.coverEyebrow { margin-bottom: auto; color: #8cb7a5; }
+.coverMark { width: 52px; height: 38px; margin: 20px 0 12px; color: #a3c9b1; }
+.coverFront h3 { font-family: Georgia, "Times New Roman", serif; font-size: clamp(38px, 5vw, 65px); font-weight: 400; letter-spacing: -.045em; line-height: 1.02; margin: 0; text-shadow: 0 1px 0 #234d47, 0 -1px 1px #041c1b; }
+.coverFront h3 em { font-weight: 400; }
+.coverRule { width: 45px; height: 1px; background: #6c9886; margin-top: 26px; }
+.coverFront > p { font-size: 16px; letter-spacing: .01em; margin: 18px 0 8px; }
+.coverRole { color: #89ae9a; font-size: 8px; }
+.coverFoot { margin-top: auto; padding-top: 20px; font-size: 8px; color: #7da693; }
+.coverBack { color: var(--journal-ink); background: linear-gradient(90deg, #e6eee8 88%, #c7d5cd 98%, #a4b8ac); transform: rotateY(180deg) translateZ(-4px); border: 7px solid #123f38; border-radius: 14px 2px 2px 14px; box-shadow: inset -12px 0 20px rgba(23,57,39,.1); }
+.coverThickness { position: absolute; inset: -8px auto -8px 0; width: 20px; background: linear-gradient(90deg,#0a2421,#1f5145,#0d3430); transform-origin: left center; transform: rotateY(-90deg) translateX(-16px); backface-visibility: hidden; border: 1px solid #235145; }
+.paperEdge { position: absolute; left: 50%; right: -3px; bottom: -7px; height: 10px; border-radius: 0 0 10px 2px; background: repeating-linear-gradient(0deg,#bbcbbb 0 1px,#e5ede1 1px 3px); transform: rotateX(-90deg); transform-origin: top; pointer-events: none; }
+.coverShade { position: absolute; inset: 0 0 0 50%; background: linear-gradient(90deg,#17372b,transparent 85%); transform: translateZ(2px); pointer-events: none; border-radius: 2px 12px 12px 2px; }
+.ribbon { position: absolute; right: 30px; top: -7px; height: calc(100% + 34px); width: 16px; background: linear-gradient(90deg, #0a5d58, #17877a, #0b625a); transform: translateZ(18px); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 98%, 0 100%); }
+.leaf { position: absolute; inset: 0 0 0 50%; transform-origin: left center; transform-style: preserve-3d; will-change: transform; }
+.leafFront { width: 100%; left: 0; transform: translateZ(.6px); }
+.leafBack { width: 100%; left: 0; border-radius: 12px 2px 2px 12px; transform: rotateY(180deg) translateZ(.6px); background: linear-gradient(90deg, #e6eee8 88%, #c7d5cd 98%, #a4b8ac); }
+.turnShade { position: absolute; inset: 0; background: linear-gradient(90deg, #183129, transparent); pointer-events: none; border-radius: inherit; }
+.entry { height: 100%; position: relative; padding: clamp(24px, 3vw, 38px); display: flex; flex-direction: column; }
+.entryHeader { display: flex; justify-content: space-between; gap: 14px; font-family: var(--font-geist-mono), monospace; font-size: 8px; letter-spacing: .05em; color: var(--journal-muted); border-bottom: 1px solid #c1d0c4; padding-bottom: 14px; }
+.entryHeader > span:first-child { color: #1b7362; }
+.company { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; margin-top: clamp(14px, 2.5vh, 26px); }
+.companyMark { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #bbccc0; border-radius: 9px; background: #f1f5ef; flex-shrink: 0; }
+.companyMark[data-company="lskit"] { width: 78px; background: #fff; }
+.companyMark[data-company="lskit"] svg { width: 68px; height: 33px; }
+.company a { display: inline-flex; align-items: center; gap: 6px; }
+.entry h3 { margin: 17px 0 12px; font-size: clamp(28px, 2.9vw, 38px); letter-spacing: -.055em; line-height: 1.03; font-weight: 550; }
+.metadata { display: flex; flex-wrap: wrap; gap: 6px 16px; font-family: var(--font-geist-mono), monospace; font-size: 8px; line-height: 1.6; letter-spacing: .025em; color: var(--journal-muted); }
+.summary { margin: 20px 0; font-size: clamp(12px, 1.05vw, 14px); line-height: 1.75; color: #3e5e50; }
+.focus h4 { margin: 0 0 10px; font-family: var(--font-geist-mono), monospace; font-size: 8px; letter-spacing: .07em; font-weight: 500; color: #536e60; }
+.focus ul { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; list-style: none; }
+.focus li { padding: 6px 8px; border: 1px solid #b9cdc0; border-radius: 3px; color: #275544; font-size: 10px; line-height: 1.5; background: rgba(255,255,255,.25); }
+.pageFooter { margin-top: auto; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font-family: var(--font-geist-mono), monospace; color: #698374; font-size: 7px; letter-spacing: .04em; }
+.pageFooter > span:last-child { font-family: Georgia, serif; font-size: 16px; color: #1a5241; }
+.journalNotes, .chapterNotes { height: 100%; padding: clamp(24px, 3.7vw, 48px); display: flex; flex-direction: column; position: relative; }
+.notesEyebrow { color: #4d7b65; }
+.journalNotes h3 { margin: 28px 0 18px; font-family: Georgia, serif; font-size: clamp(28px, 3.5vw, 46px); font-weight: 400; line-height: 1.08; letter-spacing: -.04em; color: #1a4133; }
+.journalNotes > p { margin: 0; font-size: 12px; line-height: 1.9; color: #698072; }
+.contents { margin-top: auto; padding-top: 24px; }
+.contents > span { color: #5d7967; font-size: 8px; }
+.contents > div { display: flex; gap: 17px; align-items: center; border-top: 1px solid #c4d1c5; padding-top: 13px; margin-top: 13px; }
+.contents > div > span { font-family: Georgia, serif; font-size: 22px; color: #69947e; }
+.contents strong { display: block; font-size: 12px; font-weight: 500; }
+.contents small { display: block; font-family: var(--font-geist-mono), monospace; color: #698072; font-size: 8px; margin-top: 5px; }
+.signature { width: 45px; height: 34px; margin-top: auto; padding-top: 7px; color: #53816b; }
+.notesFoot { font-size: 7px; color: #66816f; padding-top: 10px; }
+.track[data-chapters="3"] .journalNotes h3 { font-size: clamp(28px, 3vw, 38px); margin-block: 20px 14px; }
+.track[data-chapters="3"] .contents > div { padding-top: 9px; margin-top: 9px; }
+.chapterNotes { background: repeating-linear-gradient(0deg, transparent 0 29px, rgba(83,121,99,.055) 29px 30px); }
+.noteNumber { position: absolute; right: 30px; top: 54px; font-family: Georgia, serif; font-size: 120px; color: rgba(73,114,92,.06); }
+.chapterNotes > svg { margin-top: 30px; }
+.chapterNotes h3 { font-family: Georgia, serif; font-size: clamp(26px, 3vw, 38px); font-weight: 400; line-height: 1.08; letter-spacing: -.035em; margin: 22px 0 10px; }
+.chapterNotes > p { font-size: 13px; color: #4d6a56; margin: 0 0 14px; }
+.chapterDuration { color: #637d6a; font-size: 8px; }
+.recordedFocus { margin-top: auto; padding-top: 22px; }
+.recordedFocus > span { color: #65836c; font-size: 8px; }
+.recordedFocus > p { font-size: 12px; margin: 12px 0; color: #3a654d; }
+.chapterNotes .notesFoot { margin-top: auto; }
+.controls { margin: 12px auto 0; display: flex; justify-content: center; align-items: center; gap: 14px; width: min(100%, 750px); }
+.controls > button, .controls > a { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--line); border-radius: 50%; background: rgba(var(--panel-rgb), .8); color: var(--signal-light); flex-shrink: 0; cursor: pointer; transition: border-color 350ms, background-color 350ms; }
+.controls > button:disabled { opacity: .25; cursor: default; }
+.controls > button:not(:disabled):hover, .controls > a:hover { border-color: var(--signal-deep); background: rgba(var(--signal-rgb), .08); }
+.chapterButtons { display: flex; gap: 8px; }
+.chapterButtons button { display: flex; align-items: center; gap: 9px; font-size: 11px; line-height: 1.5; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 30px; padding: 10px 15px; cursor: pointer; transition: color 450ms, background-color 450ms, border-color 450ms; }
+.chapterButtons button span { font-family: var(--font-geist-mono), monospace; font-size: 8px; color: var(--signal-deep); }
+.chapterButtons button[aria-current="step"] { color: var(--text); background: rgba(var(--signal-rgb), .075); border-color: rgba(var(--signal-rgb), .35); }
+.chapterButtons button[aria-current="step"] span { color: var(--signal); }
+.chapterButtons button:hover { border-color: var(--signal-deep); }
+.readingStatus { width: min(100%, 1050px); margin: 18px auto 12px; font-size: 8px; }
+.readingStatus > span:last-child { display: inline-flex; gap: 8px; align-items: center; }
+.progressTrack { width: min(100%, 1050px); height: 1px; background: var(--line); margin: 0 auto; }
+.progressTrack span { display: block; height: 1px; background: var(--signal-deep); transform-origin: left; }
+.readable { margin-top: 40px; --journal-paper: #e6eee8; --journal-ink: #143432; --journal-muted: #536e66; }
+.readableHeading { display: flex; align-items: center; gap: 10px; font-family: var(--font-geist-mono), monospace; font-size: 9px; color: var(--signal-light); margin-bottom: 24px; letter-spacing: .04em; }
+.readable > ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding: 0; margin: 0; list-style: none; }
+.readablePage { position: relative; height: 100%; border-radius: 5px 16px 16px 5px; background: linear-gradient(90deg, #c5d4c8, #e6eee8 4%, #edf2ea); color: var(--journal-ink); border-left: 7px solid #1d5148; box-shadow: 0 8px 0 -5px #c0d0c2, 0 12px 0 -7px #153d33, 0 24px 50px rgba(0,0,0,.2); }
+.readablePage .entry { padding: 30px; }
+.readablePage .summary { font-size: 14px; }
+.continueLink { display: inline-flex; align-items: center; gap: 14px; margin-top: 35px; padding-block: 10px; color: var(--signal-light); font-size: 12px; }
+@media (max-width: 899px) { .readable > ol { grid-template-columns: 1fr; gap: 32px; max-width: 650px; margin-inline: auto; } .readableHeading { justify-content: center; } .readablePage .entry { padding: clamp(22px, 5vw, 40px); } .readablePage .summary { font-size: 14px; } }
+@media (max-width: 420px) { .entryHeader { font-size: 7px; } .company { font-size: 12px; gap: 9px; } .entry h3 { font-size: 30px; } .metadata { flex-direction: column; gap: 5px; } .focus li { font-size: 10px; } .readablePage .entry { padding: 24px 20px; } }
+@media (min-width: 900px) and (max-height: 790px) { .entry { padding: 22px 28px; } .company { margin-top: 14px; } .companyMark { width: 36px; height: 36px; } .companyMark svg { width: 27px; height: 27px; } .entry h3 { margin-block: 12px 9px; font-size: 29px; } .summary { margin-block: 13px; font-size: 12px; line-height: 1.65; } .focus li { padding: 5px 7px; font-size: 9px; } .pageFooter { padding-top: 12px; } .journalNotes, .chapterNotes { padding: 28px 35px; } .journalNotes h3 { font-size: 33px; margin-block: 24px 14px; } .contents { padding-top: 18px; } .coverFront { padding: 32px; } .coverFront h3 { font-size: 46px; } }
+@media (min-width: 900px) and (max-height: 790px) { .sticky { padding-block: 6px; } .sceneHeader { margin-bottom: 0; } .readingStatus { margin-block: 12px 7px; } }
+@media (min-width: 900px) and (max-height: 790px) {
+  .companyMark[data-company="lskit"] { width: 70px; }
+  .companyMark[data-company="lskit"] svg { width: 60px; height: 29px; }
+  .track[data-chapters="3"] .journalNotes h3 { font-size: 27px; margin-block: 12px 8px; }
+  .track[data-chapters="3"] .journalNotes > p, .track[data-chapters="3"] .signature { display: none; }
+  .track[data-chapters="3"] .contents { padding-top: 6px; }
+  .track[data-chapters="3"] .contents > div { padding-top: 7px; margin-top: 7px; }
+  .track[data-chapters="3"] .notesFoot { margin-top: auto; }
+}

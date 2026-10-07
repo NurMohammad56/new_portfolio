@@ -1,6 +1,7 @@
 import { MotionProvider } from "@/components/interactive/reveal";
 import { PortfolioIntro } from "@/components/interactive/portfolio-intro";
 import { Navigation } from "@/components/interactive/navigation";
+import { ScrollEdgeLines } from "@/components/interactive/scroll-edge-lines";
 import { ClientProof } from "@/components/sections/client-proof";
 import { Contact, Footer } from "@/components/sections/contact";
 import { Deployment } from "@/components/sections/deployment";
@@ -28,6 +29,7 @@ export default function Home() {
       <PortfolioIntro>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <Navigation items={navigation} />
+        <ScrollEdgeLines />
         <main id="main-content">
           <Hero />
           <ClientProof />

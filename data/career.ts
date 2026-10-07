@@ -58,6 +58,25 @@ export const careerStages = [
     ],
     icon: "Code2",
   },
+  {
+    id: "lskit-web-development-intern",
+    number: "03",
+    phase: "INTERNSHIP",
+    organization: "LSKIT",
+    location: "",
+    logoId: "lskit",
+    role: "Web Development Intern",
+    duration: "3 MONTHS",
+    summary:
+      "Supported small frontend and backend tasks during a three-month internship-style role at LSKIT, gaining practical experience with website interfaces and server-side development.",
+    highlights: [
+      "Frontend implementation",
+      "Backend development",
+      "Small web features",
+      "Practical development experience",
+    ],
+    icon: "Code2",
+  },
 ] as const satisfies readonly CareerStage[];
 
 export const careerDeliveryRecord = [

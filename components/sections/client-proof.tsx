@@ -1,4 +1,4 @@
-import { CareerStory } from "@/components/interactive/career-story";
+import { CareerDiary } from "@/components/interactive/career-diary";
 import { Reveal } from "@/components/interactive/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { careerStages } from "@/data/career";
@@ -18,11 +18,11 @@ export function ClientProof() {
             id="career-title"
             eyebrow="Career progression"
             title="Experience behind the systems."
-            description="Backend development at Scaleup IT Limited, following web platform work at Arabian Services Company."
+            description="From hands-on frontend and backend work at LSKIT to web platform delivery at Arabian Services Company and backend development at Scaleup IT Limited."
           />
         </Reveal>
 
-        <CareerStory stages={careerStages} />
+        <CareerDiary stages={careerStages} />
       </div>
     </section>
   );

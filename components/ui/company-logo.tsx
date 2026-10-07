@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-export type CompanyLogoId = "backend" | "arabian" | "scaleup" | "coderstrust" | "fiverr";
+export type CompanyLogoId = "backend" | "arabian" | "scaleup" | "coderstrust" | "fiverr" | "lskit";
 
 interface CompanyLogoProps extends SVGProps<SVGSVGElement> {
   id: CompanyLogoId;
@@ -223,6 +223,12 @@ export function CompanyLogo({
   ...props
 }: CompanyLogoProps) {
   switch (id) {
+    case "lskit":
+      return (
+        <svg width={size * 2.08} height={size} viewBox="0 0 208 100" preserveAspectRatio="xMidYMid meet" className={className} aria-hidden="true" {...props}>
+          <image href="/companies/lskit.svg" width="208" height="100" preserveAspectRatio="xMidYMid meet" />
+        </svg>
+      );
     case "arabian":
       return (
         <svg width={size} height={size} viewBox="0 0 160 155" className={className} aria-hidden="true" {...props}>
