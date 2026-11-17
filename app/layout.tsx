@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { portfolioPalette, portfolioTheme, themeInitializationScript } from "@/data/palette";
 import "./globals.css";
+import "./motion.css";
 
 const siteUrl = "https://nurmohammad.dev";
 const siteName = "Nur Mohammad";

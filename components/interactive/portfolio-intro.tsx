@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { markPortfolioReady } from "@/components/motion/gsap";
 import { NmLettermark } from "@/components/ui/nm-lettermark";
 import styles from "./portfolio-intro.module.css";
 
@@ -45,11 +46,14 @@ export function PortfolioIntro({ children }: { children: ReactNode }) {
       if (previousAriaHidden === null) content.removeAttribute("aria-hidden");
       else content.setAttribute("aria-hidden", previousAriaHidden);
     };
+    // The hero choreography starts in the last moments of the overlay's fade,
+    // so the handoff is seamless but the title rise is never hidden behind it.
+    const readyTimer = window.setTimeout(markPortfolioReady, Math.max(0, remaining - duration * 0.3));
     const timer = window.setTimeout(() => {
       release();
       setComplete(true);
     }, remaining);
-    return () => { window.clearTimeout(timer); release(); };
+    return () => { window.clearTimeout(readyTimer); window.clearTimeout(timer); release(); };
   }, []);
 
   return (

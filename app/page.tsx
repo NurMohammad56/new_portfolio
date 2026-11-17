@@ -2,6 +2,10 @@ import { MotionProvider } from "@/components/interactive/reveal";
 import { PortfolioIntro } from "@/components/interactive/portfolio-intro";
 import { Navigation } from "@/components/interactive/navigation";
 import { ScrollEdgeLines } from "@/components/interactive/scroll-edge-lines";
+import { CursorFollower } from "@/components/motion/cursor-follower";
+import { MotionDirector } from "@/components/motion/motion-director";
+import { SmoothScroll } from "@/components/motion/smooth-scroll";
+import { VelocityMarquee } from "@/components/motion/velocity-marquee";
 import { ClientProof } from "@/components/sections/client-proof";
 import { Contact, Footer } from "@/components/sections/contact";
 import { Deployment } from "@/components/sections/deployment";
@@ -26,17 +30,32 @@ const jsonLd = {
 export default function Home() {
   return (
     <MotionProvider>
+      <SmoothScroll />
+      <CursorFollower />
       <PortfolioIntro>
+        <MotionDirector />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <Navigation items={navigation} />
         <ScrollEdgeLines />
         <main id="main-content">
           <Hero />
+          <VelocityMarquee
+            label="Backend APIs, real-time systems, mobile backends, data design and production deployment, built with Node.js, Nest.js, Express.js, MongoDB, PostgreSQL, Socket.IO and Next.js."
+            rows={[
+              { items: ["Backend APIs", "Real-time systems", "Mobile backends", "Data design", "Production deploys"] },
+              { items: ["Node.js", "Nest.js", "Express.js", "MongoDB", "PostgreSQL", "Socket.IO", "Next.js"], outline: true, direction: -1 },
+            ]}
+          />
           <ClientProof />
           <Projects />
           <Stack />
           <Services />
           <Deployment />
+          <VelocityMarquee
+            size="statement"
+            label="Let's build something that lasts."
+            rows={[{ items: ["Let's build", "Something that lasts"] }]}
+          />
           <Contact />
         </main>
         <Footer />

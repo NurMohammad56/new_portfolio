@@ -19,7 +19,7 @@ export function Deployment() {
         </Reveal>
         <div className={styles.destinations}>
           <h3>Where the work runs</h3>
-          <div className={styles.lanes}>
+          <div className={styles.lanes} data-stagger>
             {deploymentLanes.map((lane, index) => (
               <Reveal className={styles.lane} delay={index * 0.04} distance={14} key={lane.id}>
                 <Icon name={lane.icon} size={22} aria-hidden="true" />

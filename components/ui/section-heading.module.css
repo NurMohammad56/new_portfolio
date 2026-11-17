@@ -5,16 +5,19 @@
   gap: clamp(24px, 4vw, 64px);
   margin-bottom: clamp(32px, 4vw, 56px);
   padding-bottom: 28px;
-  border-bottom: 1px solid var(--line);
   color: var(--text);
+  position: relative;
 }
+/* The rule draws itself in when the heading enters (see motion-director). */
+.heading::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, rgba(var(--signal-rgb), .55), var(--line) 22%, var(--line)); transform: scaleX(var(--rule, 1)); transform-origin: left center; }
 .kicker { display: flex; gap: 14px; padding-top: 7px; font-size: 11px; line-height: 1.6; }
 .kicker > span:first-child { color: var(--signal); font-family: var(--font-geist-mono), monospace; }
 .kicker > span:last-child { color: var(--muted); }
 .copy { min-width: 0; max-width: 850px; }
 .copy h2 { margin: 0; max-width: 760px; font-size: clamp(28px, 3.1vw, 44px); font-weight: 500; letter-spacing: -0.045em; line-height: 1.15; text-wrap: balance; }
 .copy p { max-width: 610px; margin: 14px 0 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
-.heading[data-theme="light"] { color: var(--ink); border-color: rgba(0, 0, 0, 0.16); }
+.heading[data-theme="light"] { color: var(--ink); }
+.heading[data-theme="light"]::after { background: rgba(0, 0, 0, 0.16); }
 .heading[data-theme="light"] .copy p, .heading[data-theme="light"] .kicker { color: var(--ink-muted); }
 @media (max-width: 760px) {
   .heading { grid-template-columns: 1fr; gap: 16px; padding-bottom: 24px; }

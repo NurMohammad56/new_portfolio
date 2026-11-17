@@ -106,6 +106,7 @@ export function Navigation({ items }: NavigationProps) {
 
         <a
           className="nav-cta"
+          data-magnetic="0.2"
           href="/resume/Nur_Mohammad_Resume.pdf"
           download="Nur_Mohammad_Resume.pdf"
           aria-label="Download Nur Mohammad's resume as a PDF"

@@ -19,6 +19,8 @@
     linear-gradient(140deg, rgba(var(--signal-rgb), .22), rgba(var(--signal-deep-rgb), .38), rgba(var(--signal-rgb), .12)) border-box;
   box-shadow: 0 28px 100px rgba(0, 0, 0, .35), inset 0 0 0 1px rgba(var(--signal-rgb), .09);
 }
+/* Dims the card as it lifts away on scroll (driven by --frame-dim). */
+.frame::after { content: ""; position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: 15px; background: var(--ink); opacity: calc(var(--frame-dim, 0) * .55); }
 .topbar { position: absolute; z-index: 3; top: 30px; left: 34px; right: 34px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .edition { color: var(--muted); font-family: var(--font-geist-mono), monospace; font-size: 9px; letter-spacing: .13em; }
 .contactLink { display: flex; flex-shrink: 0; align-items: center; gap: 18px; padding: 10px 17px; border: 1px solid rgba(var(--signal-rgb), .4); border-radius: 4px; color: var(--signal); font-size: 11px; white-space: nowrap; transition: background 200ms, color 200ms; }

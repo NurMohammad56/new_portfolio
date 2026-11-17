@@ -36,7 +36,7 @@ export function ServiceDetails() {
 
   return (
     <>
-      <div className={styles.list}>
+      <div className={styles.list} data-stagger>
         {services.map((item, index) => (
           <button className={styles.row} key={item.number} type="button"
             aria-haspopup="dialog" aria-controls="service-details-dialog"
@@ -51,7 +51,7 @@ export function ServiceDetails() {
         ))}
       </div>
 
-      <dialog id="service-details-dialog" ref={dialogRef} className={styles.dialog}
+      <dialog id="service-details-dialog" ref={dialogRef} className={styles.dialog} data-lenis-prevent
         aria-labelledby="service-detail-title" aria-describedby="service-detail-overview"
         onCancel={event => { event.preventDefault(); close(); }}
         onClick={event => { if (event.target === event.currentTarget) close(); }}>

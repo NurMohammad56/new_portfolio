@@ -18,8 +18,8 @@ export function SectionHeading({
   id,
 }: SectionHeadingProps) {
   return (
-    <header className={styles.heading} data-theme={theme}>
-      <div className={styles.kicker}>
+    <header className={styles.heading} data-theme={theme} data-heading>
+      <div className={styles.kicker} data-heading-kicker>
         <span>{index}</span>
         <span>{eyebrow}</span>
       </div>

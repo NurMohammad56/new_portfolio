@@ -46,13 +46,13 @@ export function Contact() {
             <p>APIs, data systems, real-time features, and production setup for mobile and web products.</p>
             <small>Based in Bangladesh · UTC +06:00</small>
           </div>
-          <div className={styles.channels}>
+          <div className={styles.channels} data-stagger>
             <div className={styles.emailRow}>
               <div>
                 <span className={styles.label}>EMAIL</span>
                 <a className={styles.email} href={`mailto:${email}`}>{email}<ArrowUpRight size={22} aria-hidden="true" /></a>
               </div>
-              <button className={styles.copy} type="button" onClick={copyEmail} aria-label="Copy email address">
+              <button className={styles.copy} data-magnetic="0.45" type="button" onClick={copyEmail} aria-label="Copy email address">
                 {copyStatus === "Email copied." ? <Check size={17} /> : <Copy size={17} />}
               </button>
             </div>
@@ -94,9 +94,10 @@ export function Footer() {
               <span key={channel.label}>{channel.label}</span>
             ),
           )}
-          <a href="#home">Top <ArrowUpRight aria-hidden="true" size={15} /></a>
+          <a href="#home" data-magnetic="0.4">Top <ArrowUpRight aria-hidden="true" size={15} /></a>
         </div>
       </div>
+      <p className="footer-wordmark" aria-hidden="true" data-footer-wordmark>{siteIdentity.name}</p>
     </footer>
   );
 }

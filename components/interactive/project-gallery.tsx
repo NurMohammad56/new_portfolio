@@ -225,7 +225,7 @@ export function ProjectGallery() {
 
   return (
     <div className={styles.showcase}>
-      <div className={styles.stage} ref={stageRef} role="region" aria-label="Project gallery" onKeyDown={event => {
+      <div className={styles.stage} ref={stageRef} data-window-reveal role="region" aria-label="Project gallery" onKeyDown={event => {
         if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
           event.preventDefault();
           const direction = event.key === "ArrowRight" ? 1 : -1;
@@ -260,15 +260,15 @@ export function ProjectGallery() {
       <div className={styles.controls}>
         <p><span className={styles.counter}>{String(active + 1).padStart(2, "0")} / 08</span> {showcaseProjects[active].title} <span>- scroll or drag · click to explore</span></p>
         <div className={styles.pagination}>
-          <button type="button" aria-label="Previous gallery project" onClick={() => navigateRef.current(-1)}><ArrowLeft size={18} /></button>
+          <button type="button" data-magnetic="0.35" aria-label="Previous gallery project" onClick={() => navigateRef.current(-1)}><ArrowLeft size={18} /></button>
           <div className={styles.dots} aria-label="Choose a project">
             {showcaseProjects.map((item, index) => <button key={item.id} type="button" aria-label={`Go to ${item.title}`} aria-pressed={active === index} onClick={() => focusCardRef.current(index)} />)}
           </div>
-          <button type="button" aria-label="Next gallery project" onClick={() => navigateRef.current(1)}><ArrowRight size={18} /></button>
+          <button type="button" data-magnetic="0.35" aria-label="Next gallery project" onClick={() => navigateRef.current(1)}><ArrowRight size={18} /></button>
         </div>
       </div>
 
-      <dialog id="project-details-dialog" ref={dialogRef} className={styles.dialog} aria-labelledby="showcase-project-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }} onKeyDown={event => {
+      <dialog id="project-details-dialog" ref={dialogRef} className={styles.dialog} data-lenis-prevent aria-labelledby="showcase-project-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }} onKeyDown={event => {
         if (event.key === "Escape") {
           event.preventDefault();
           if (zoomedImage) setZoomedImage(false); else close();

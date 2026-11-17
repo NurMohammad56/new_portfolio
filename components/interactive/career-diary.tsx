@@ -5,6 +5,7 @@ import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen } from "lucide
 import { m, useMotionValueEvent, useScroll, useSpring, useTransform } from "motion/react";
 import { CompanyLogo } from "@/components/ui/company-logo";
 import { NmLettermark } from "@/components/ui/nm-lettermark";
+import { scrollToY } from "@/components/motion/smooth-scroll";
 import type { CareerStage } from "@/data/career";
 import { diaryChapter, diaryLeafProgress, diaryOpenness, diaryPageTiming, diaryTimeline, smoothRange } from "./diary-timeline";
 import styles from "./career-diary.module.css";
@@ -73,13 +74,13 @@ function AnimatedDiary({ stages }: { stages: readonly CareerStage[] }) {
     const destination = index < 0 ? 0 : diaryPageTiming(index, stages.length).destination;
     const start = element.getBoundingClientRect().top + window.scrollY - 88;
     const distance = element.offsetHeight - window.innerHeight + 88;
-    window.scrollTo({ top: start + distance * destination, behavior: "smooth" });
+    scrollToY(start + distance * destination);
   };
   const closeDiary = () => {
     const element = track.current;
     if (!element) return;
     const start = element.getBoundingClientRect().top + window.scrollY - 88;
-    window.scrollTo({ top: start + (element.offsetHeight - window.innerHeight + 88) * 0.985, behavior: "smooth" });
+    scrollToY(start + (element.offsetHeight - window.innerHeight + 88) * 0.985);
   };
   const last = stages[stages.length - 1];
   return (

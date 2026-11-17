@@ -1,0 +1,61 @@
+/* Motion layer: smooth scroll, split-text masks, film grain, closing wordmark. */
+
+/* Lenis owns smooth scrolling while it runs; native smooth would fight it. */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* Split-text line masks: room for descenders (p, y, g) under the clip. */
+.hero-line-mask,
+.heading-line-mask { padding-bottom: .12em; margin-bottom: -.12em; }
+.hero-line-mask { padding-right: .08em; margin-right: -.08em; }
+.hero-char { will-change: transform; }
+
+/* Film grain: a quiet analog texture over the whole page. */
+.film-grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 95;
+  pointer-events: none;
+  opacity: .055;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 900ms steps(6) infinite;
+}
+html[data-theme="light"] .film-grain { opacity: .07; filter: invert(1); }
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-4%, 3%); }
+  40% { transform: translate(3%, -5%); }
+  60% { transform: translate(-6%, -2%); }
+  80% { transform: translate(5%, 4%); }
+  100% { transform: translate(-2%, 6%); }
+}
+
+/* Closing wordmark under the footer. */
+.footer-wordmark {
+  margin: 0;
+  padding: clamp(10px, 2vw, 28px) 0 0;
+  overflow: hidden;
+  text-align: center;
+  font-size: clamp(56px, 12.2vw, 228px);
+  font-weight: 650;
+  line-height: .86;
+  letter-spacing: -.07em;
+  white-space: nowrap;
+  user-select: none;
+}
+/* Each glyph carries its own gradient: a shared text clip breaks once letters move. */
+.footer-wordmark,
+.footer-wordmark .wordmark-char {
+  background: linear-gradient(180deg, var(--signal) 0%, rgba(var(--signal-rgb), .35) 55%, rgba(var(--signal-rgb), 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.footer-wordmark:has(.wordmark-char) { background: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .film-grain { animation: none; }
+}
