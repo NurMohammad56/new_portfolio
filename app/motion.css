@@ -76,6 +76,7 @@ html[data-theme="light"] .film-grain { opacity: .07; filter: invert(1); }
   [data-tilt-group] > *:hover::before { opacity: 1; }
 }
 /* Deployment lanes read as cards so their 3D tilt has a surface. */
+[data-tilt-group] { perspective: 900px; }
 [data-tilt-group] > * {
   border-radius: 14px;
   transition: background-color 300ms ease, box-shadow 400ms ease;

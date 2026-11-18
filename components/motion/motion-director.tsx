@@ -262,8 +262,8 @@ function spotlights(cleanups: Cleanup[]) {
 
 /** Cards lean toward the pointer in 3D and settle back when it leaves. */
 function tilts(cleanups: Cleanup[]) {
+  // Depth comes from `perspective` on the group (motion.css).
   for (const element of $$("[data-tilt-group] > *")) {
-    gsap.set(element, { transformPerspective: 900 });
     const rotateX = gsap.quickTo(element, "rotationX", { duration: 0.7, ease: EASE.glide });
     const rotateY = gsap.quickTo(element, "rotationY", { duration: 0.7, ease: EASE.glide });
     const move = (event: PointerEvent) => {

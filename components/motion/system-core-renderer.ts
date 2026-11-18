@@ -129,10 +129,10 @@ function buildShapes(count: number) {
     // flat (normal = y); the renderer tilts it toward the camera at this stage.
     {
       const arm = i % 3;
-      const r = Math.pow(random(), 0.65) * 2.3;
-      const angle = r * 2.4 + (arm / 3) * TAU + gaussian() * 0.22 * (1 - r / 3);
+      const r = Math.pow(random(), 0.65) * 2;
+      const angle = r * 2.7 + (arm / 3) * TAU + gaussian() * 0.22 * (1 - r / 2.6);
       shapes[4][o] = Math.cos(angle) * r;
-      shapes[4][o + 1] = gaussian() * 0.11 * (1.25 - r / 2.3);
+      shapes[4][o + 1] = gaussian() * 0.1 * (1.25 - r / 2);
       shapes[4][o + 2] = Math.sin(angle) * r;
     }
   }
@@ -251,8 +251,12 @@ export function createSystemCoreRenderer(canvas: HTMLCanvasElement, options: { c
     depthWrite: false,
   });
   const points = new THREE.Points(geometry, material);
+  // Nested on purpose: `spin` turns each shape about its own vertical axis,
+  // then the outer `group` tilts and places the spinning shape.
+  const spin = new THREE.Group();
+  spin.add(points);
   const group = new THREE.Group();
-  group.add(points);
+  group.add(spin);
   scene.add(group);
 
   let wide = true;
@@ -273,7 +277,9 @@ export function createSystemCoreRenderer(canvas: HTMLCanvasElement, options: { c
     camera.aspect = width / height;
     wide = camera.aspect > 1.05;
     // Keep the shape fully in frame on tall phone screens.
-    camera.position.z = wide ? 7 : 7 + (1.05 - camera.aspect) * 6.5;
+    camera.position.z = wide ? 7 : 7 + (1.05 - camera.aspect) * 9;
+    // A farther camera shrinks points; compensate so density reads the same.
+    uniforms.uSize.value = 26 * (camera.position.z / 7);
     camera.updateProjectionMatrix();
   };
 
@@ -282,15 +288,16 @@ export function createSystemCoreRenderer(canvas: HTMLCanvasElement, options: { c
     uniforms.uTime.value = frame.time;
     uniforms.uProgress.value = frame.progress;
     uniforms.uMotion.value = frame.animate ? 1 : 0;
-    // Desktop: the shape sits right of the captions. Phones: above them.
-    group.position.set(wide ? 1.55 : 0, wide ? 0 : 0.95, 0);
+    // Desktop: the shape sits right of the captions. Phones: in the gap
+    // between the heading and the captions.
+    group.position.set(wide ? 1.55 : 0, wide ? 0 : 0.55, 0);
     const drift = frame.animate ? frame.time * 0.12 : 0;
-    // Euler XYZ: Y spins each shape about its own axis, then X tilts it.
     // On the last stage the galaxy tips toward the camera so its arms read.
     const galaxy = Math.min(Math.max(frame.progress - 3, 0), 1);
     const galaxyTilt = galaxy * galaxy * (3 - 2 * galaxy) * 0.95;
-    group.rotation.y = drift + frame.progress * 0.9 + frame.pointerX * 0.45;
+    spin.rotation.y = drift + frame.progress * 0.9;
     group.rotation.x = 0.18 + galaxyTilt + frame.pointerY * 0.3 + Math.sin(frame.progress * 1.3) * 0.12 * (1 - galaxy);
+    group.rotation.y = frame.pointerX * 0.45;
     renderer.render(scene, camera);
   };
 
