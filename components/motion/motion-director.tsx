@@ -101,13 +101,41 @@ function heroExit(wide: boolean) {
 
 /* -------------------------------------------------------------- headings -- */
 
-function sectionHeadings() {
+const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/<>_-";
+
+/** Decodes text left to right through random glyphs, like a terminal resolving. */
+function scramble(element: HTMLElement, original: string, duration = 0.9) {
+  const state = { progress: 0 };
+  const restore = () => { element.textContent = original; };
+  return gsap.to(state, {
+    progress: 1,
+    duration,
+    ease: "none",
+    onUpdate: () => {
+      const settled = Math.floor(state.progress * original.length);
+      let output = "";
+      for (let index = 0; index < original.length; index++) {
+        const character = original[index];
+        output += index < settled || character === " " ? character : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      }
+      element.textContent = output;
+    },
+    onComplete: restore,
+    onInterrupt: restore,
+  });
+}
+
+function sectionHeadings(cleanups: Cleanup[]) {
   for (const header of $$("[data-heading]")) {
     const h2 = $("h2", header);
     if (!h2) continue;
     gsap.set(header, { "--rule": 0 });
     const kicker = $$("[data-heading-kicker] > *", header);
     const copy = $("p", header);
+    const label = kicker[kicker.length - 1];
+    const labelText = label?.textContent ?? "";
+    // A re-split or teardown mid-scramble must never leave garbled text behind.
+    if (label) cleanups.push(() => { label.textContent = labelText; });
 
     SplitText.create(h2, {
       type: "lines,words",
@@ -123,6 +151,7 @@ function sectionHeadings() {
         })
           .to(header, { "--rule": 1, duration: 1.6, ease: EASE.sweep }, 0)
           .from(kicker, { autoAlpha: 0, x: -12, stagger: 0.08, duration: 0.9 }, 0.05)
+          .add(label ? scramble(label, labelText) : gsap.timeline(), 0.12)
           .from(self.words, { yPercent: 112, duration: 1.15, stagger: 0.045 }, 0.08)
           .from(copy, { autoAlpha: 0, y: 18, duration: 1 }, 0.35);
       },
@@ -216,6 +245,42 @@ function magnetic(cleanups: Cleanup[]) {
   }
 }
 
+/* ------------------------------------------------------ spotlight & tilt -- */
+
+/** Feeds the pointer position to the CSS spotlight (see motion.css). */
+function spotlights(cleanups: Cleanup[]) {
+  for (const element of $$("[data-spotlight], [data-tilt-group] > *")) {
+    const move = (event: PointerEvent) => {
+      const rect = element.getBoundingClientRect();
+      element.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
+      element.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
+    };
+    element.addEventListener("pointermove", move);
+    cleanups.push(() => element.removeEventListener("pointermove", move));
+  }
+}
+
+/** Cards lean toward the pointer in 3D and settle back when it leaves. */
+function tilts(cleanups: Cleanup[]) {
+  for (const element of $$("[data-tilt-group] > *")) {
+    gsap.set(element, { transformPerspective: 900 });
+    const rotateX = gsap.quickTo(element, "rotationX", { duration: 0.7, ease: EASE.glide });
+    const rotateY = gsap.quickTo(element, "rotationY", { duration: 0.7, ease: EASE.glide });
+    const move = (event: PointerEvent) => {
+      const rect = element.getBoundingClientRect();
+      rotateY(((event.clientX - rect.left) / rect.width - 0.5) * 12);
+      rotateX(-((event.clientY - rect.top) / rect.height - 0.5) * 12);
+    };
+    const leave = () => { rotateX(0); rotateY(0); };
+    element.addEventListener("pointermove", move);
+    element.addEventListener("pointerleave", leave);
+    cleanups.push(() => {
+      element.removeEventListener("pointermove", move);
+      element.removeEventListener("pointerleave", leave);
+    });
+  }
+}
+
 /* -------------------------------------------------------------- director -- */
 
 /**
@@ -238,13 +303,17 @@ export function MotionDirector() {
 
         heroEntrance(cleanups);
         heroExit(wide);
-        sectionHeadings();
+        sectionHeadings(cleanups);
         staggerGroups();
         windowReveals();
         parallaxBlocks();
         footerWordmark();
         if (wide && fine) heroDepth(cleanups);
-        if (fine) magnetic(cleanups);
+        if (fine) {
+          magnetic(cleanups);
+          spotlights(cleanups);
+          tilts(cleanups);
+        }
 
         requestAnimationFrame(() => ScrollTrigger.refresh());
         return () => cleanups.forEach(cleanup => cleanup());

@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { markPortfolioReady } from "@/components/motion/gsap";
 import { NmLettermark } from "@/components/ui/nm-lettermark";
 import styles from "./portfolio-intro.module.css";
 
-const INTRO_DURATION = 2000;
-const EXIT_DURATION = 350;
+// Must match the CSS timeline in portfolio-intro.module.css.
+const INTRO_DURATION = 2300;
+const EXIT_DURATION = 950;
+const NAME = "Nur Mohammad";
+const BOOT_STEPS = ["booting runtime", "connecting database", "syncing real-time channels", "deploying portfolio"];
 
 export function PortfolioIntro({ children }: { children: ReactNode }) {
   const screenRef = useRef<HTMLDivElement>(null);
@@ -18,7 +21,7 @@ export function PortfolioIntro({ children }: { children: ReactNode }) {
     if (!screen || !content) return;
 
     // Follow the CSS timeline, which starts before hydration. Slow hydration
-    // must not add another two-second wait or leave the portfolio blocked.
+    // must not add another wait or leave the portfolio blocked.
     const animation = screen.getAnimations()[0];
     const timing = animation?.effect?.getTiming();
     const duration = typeof timing?.duration === "number" ? timing.duration : EXIT_DURATION;
@@ -46,9 +49,9 @@ export function PortfolioIntro({ children }: { children: ReactNode }) {
       if (previousAriaHidden === null) content.removeAttribute("aria-hidden");
       else content.setAttribute("aria-hidden", previousAriaHidden);
     };
-    // The hero choreography starts in the last moments of the overlay's fade,
-    // so the handoff is seamless but the title rise is never hidden behind it.
-    const readyTimer = window.setTimeout(markPortfolioReady, Math.max(0, remaining - duration * 0.3));
+    // The curtain lifts from the bottom; the hero title (upper half) is
+    // uncovered around the midpoint, which is when its letters begin to rise.
+    const readyTimer = window.setTimeout(markPortfolioReady, Math.max(0, remaining - duration * 0.5));
     const timer = window.setTimeout(() => {
       release();
       setComplete(true);
@@ -61,36 +64,47 @@ export function PortfolioIntro({ children }: { children: ReactNode }) {
       {!complete && (
         <div ref={screenRef} className={styles.screen} data-portfolio-intro
           role="status" aria-live="polite" aria-label="Loading Nur Mohammad's portfolio">
-          <div className={styles.header} aria-hidden="true">
-            <span>NUR MOHAMMAD / PORTFOLIO</span>
-            <span>BACKEND / AI-ASSISTED FRONTEND</span>
-          </div>
-          <div className={styles.center} aria-hidden="true">
-            <div className={styles.sculpture}>
-              <div className={styles.halo} />
-              <div className={styles.scene}>
-                <div className={styles.volume}>
-                  <i className={styles.front} />
-                  <i className={styles.back} />
-                  <i className={styles.left} />
-                  <i className={styles.right} />
-                  <i className={styles.top} />
-                  <i className={styles.bottom} />
-                  <i className={styles.layerOne} />
-                  <i className={styles.layerTwo} />
-                  <i className={styles.layerThree} />
-                </div>
-              </div>
-              <NmLettermark className={styles.mark} />
+          <div className={styles.inner}>
+            <div className={styles.header} aria-hidden="true">
+              <span>NUR MOHAMMAD / PORTFOLIO</span>
+              <span>BACKEND / AI-ASSISTED FRONTEND</span>
             </div>
-            <h2>Nur Mohammad</h2>
-            <p>Backend-first. Thoughtfully built.</p>
-            <div className={styles.progress}><span /></div>
-            <span className={styles.caption}>OPENING PORTFOLIO</span>
-          </div>
-          <div className={styles.footer} aria-hidden="true">
-            <span>DHAKA, BANGLADESH</span>
-            <span>BUILT TO LAST</span>
+
+            <div className={styles.center} aria-hidden="true">
+              <div className={styles.gyro}>
+                <div className={styles.core} />
+                <div className={styles.rings}>
+                  <span className={styles.orbit} style={{ "--tilt": "rotateX(72deg)", "--size": "100%", "--spin": "2.6s" } as CSSProperties}><i /></span>
+                  <span className={styles.orbit} style={{ "--tilt": "rotateY(68deg) rotateX(18deg)", "--size": "80%", "--spin": "2.1s", "--dir": "reverse" } as CSSProperties}><i /></span>
+                  <span className={styles.orbit} style={{ "--tilt": "rotateX(-48deg) rotateY(-34deg)", "--size": "62%", "--spin": "1.7s" } as CSSProperties}><i /></span>
+                </div>
+                <NmLettermark className={styles.mark} />
+              </div>
+              <h2 className={styles.name}>
+                {NAME.split("").map((character, index) => (
+                  <span key={index} style={{ "--i": index } as CSSProperties}>{character === " " ? " " : character}</span>
+                ))}
+              </h2>
+              <p className={styles.tagline}>Backend-first. Thoughtfully built.</p>
+            </div>
+
+            <div className={styles.readout} aria-hidden="true">
+              <div className={styles.terminal}>
+                <span className={styles.prompt}>&gt;</span>
+                <span className={styles.lines}>
+                  <span className={styles.roll}>
+                    {BOOT_STEPS.map(step => <span key={step}>{step}</span>)}
+                  </span>
+                </span>
+              </div>
+              <div className={styles.count}><small>%</small></div>
+            </div>
+
+            <div className={styles.progress} aria-hidden="true"><span /></div>
+            <div className={styles.footer} aria-hidden="true">
+              <span>DHAKA, BANGLADESH</span>
+              <span>BUILT TO LAST</span>
+            </div>
           </div>
         </div>
       )}

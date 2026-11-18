@@ -5,6 +5,7 @@ import { ScrollEdgeLines } from "@/components/interactive/scroll-edge-lines";
 import { CursorFollower } from "@/components/motion/cursor-follower";
 import { MotionDirector } from "@/components/motion/motion-director";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
+import { SystemCore } from "@/components/motion/system-core";
 import { VelocityMarquee } from "@/components/motion/velocity-marquee";
 import { ClientProof } from "@/components/sections/client-proof";
 import { Contact, Footer } from "@/components/sections/contact";
@@ -48,6 +49,7 @@ export default function Home() {
           />
           <ClientProof />
           <Projects />
+          <SystemCore />
           <Stack />
           <Services />
           <Deployment />

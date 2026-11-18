@@ -47,7 +47,7 @@ export function Contact() {
             <small>Based in Bangladesh · UTC +06:00</small>
           </div>
           <div className={styles.channels} data-stagger>
-            <div className={styles.emailRow}>
+            <div className={styles.emailRow} data-spotlight>
               <div>
                 <span className={styles.label}>EMAIL</span>
                 <a className={styles.email} href={`mailto:${email}`}>{email}<ArrowUpRight size={22} aria-hidden="true" /></a>
@@ -57,7 +57,7 @@ export function Contact() {
               </button>
             </div>
             <p className={styles.status} role="status">{copyStatus}</p>
-            <a className={styles.whatsapp} href="https://wa.me/8801889376903" target="_blank" rel="noreferrer">
+            <a className={styles.whatsapp} data-spotlight href="https://wa.me/8801889376903" target="_blank" rel="noreferrer">
               <span><small>WHATSAPP</small>+880 1889 376903</span>
               <span>Start a conversation <ArrowUpRight size={17} aria-hidden="true" /></span>
             </a>

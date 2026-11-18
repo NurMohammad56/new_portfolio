@@ -38,7 +38,7 @@ export function ServiceDetails() {
     <>
       <div className={styles.list} data-stagger>
         {services.map((item, index) => (
-          <button className={styles.row} key={item.number} type="button"
+          <button className={styles.row} key={item.number} type="button" data-spotlight
             aria-haspopup="dialog" aria-controls="service-details-dialog"
             aria-expanded={opened === index} aria-label={`Explore ${item.title}`}
             onClick={event => { triggerRef.current = event.currentTarget; setOpened(index); }}>

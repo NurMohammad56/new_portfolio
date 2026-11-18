@@ -56,6 +56,42 @@ html[data-theme="light"] .film-grain { opacity: .07; filter: invert(1); }
 }
 .footer-wordmark:has(.wordmark-char) { background: none; }
 
+/* Cursor spotlight: a soft light that follows the pointer across a surface. */
+[data-spotlight],
+[data-tilt-group] > * { position: relative; isolation: isolate; }
+[data-spotlight]::before,
+[data-tilt-group] > *::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  background: radial-gradient(380px circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(var(--signal-rgb), .13), transparent 62%);
+}
+@media (hover: hover) {
+  [data-spotlight]:hover::before,
+  [data-tilt-group] > *:hover::before { opacity: 1; }
+}
+/* Deployment lanes read as cards so their 3D tilt has a surface. */
+[data-tilt-group] > * {
+  border-radius: 14px;
+  transition: background-color 300ms ease, box-shadow 400ms ease;
+  will-change: transform;
+}
+@media (hover: hover) {
+  [data-tilt-group] > *:hover {
+    background-color: rgba(var(--signal-rgb), .03);
+    box-shadow: 0 24px 60px -30px rgba(var(--signal-rgb), .35), inset 0 0 0 1px rgba(var(--signal-rgb), .14);
+  }
+}
+
+/* GSAP owns the entrance of staggered groups; the CSS scroll-timeline
+   fallback would otherwise pin their transform and block tilt/stagger. */
+[data-stagger] > .reveal-block.reveal-block { animation: none; }
+
 @media (prefers-reduced-motion: reduce) {
   .film-grain { animation: none; }
 }
